@@ -8,6 +8,19 @@ export type GameInitialState = {
   winningCondition: number;
 };
 
-export type GameAction = {
-  type: 'CHANGE_TURN' | 'CHANGE_BOARD_SIZE' | 'CHANGE_WINNING_CONDITION';
+type ChangeTurnAction = {
+  type: 'CHANGE_TURN';
+  value: Player['id'];
 };
+
+type ChangeBoardSizeAction = {
+  type: 'CHANGE_BOARD_SIZE';
+  value: number;
+};
+
+type ChangeWinningConditionAction = {
+  type: 'CHANGE_WINNING_CONDITION';
+  value: number;
+};
+
+export type GameAction = ChangeTurnAction | ChangeBoardSizeAction | ChangeWinningConditionAction;

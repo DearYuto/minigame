@@ -18,14 +18,14 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
       const currentIndex = state.players.findIndex((player) => player.id === state.turn);
       const nextIndex = (currentIndex + 1) % state.players.length;
 
-      return { ...state, turn: state.players[nextIndex].id };
+      return { ...state, turn: nextIndex };
     }
 
     case 'CHANGE_BOARD_SIZE':
-      return { ...state, boardSize: state.boardSize };
+      return { ...state, boardSize: action.value };
 
     case 'CHANGE_WINNING_CONDITION':
-      return { ...state, winningCondition: state.winningCondition };
+      return { ...state, winningCondition: action.value };
 
     default:
       return state;
