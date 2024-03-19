@@ -1,4 +1,5 @@
 import HomePage from './pages/home';
+import '@/styles/main.css';
 
 function Layout() {
   return (
