@@ -3,12 +3,14 @@ import { Player } from '@/components/player/types/player';
 
 import type { GameAction, GameInitialState } from '../types/gameState';
 
+import { GAME_RULE } from '@/constants/gameRule';
+
 export const initGame: GameInitialState = {
   players: [{ ...PLAYER1 }, { ...PLAYER2 }],
   status: [],
   turn: null,
-  boardSize: 3,
-  winningCondition: 3,
+  boardSize: GAME_RULE.boardSize,
+  winningCondition: GAME_RULE.winningCondition,
 };
 
 export const gameReducer = (state: GameInitialState, action: GameAction) => {
