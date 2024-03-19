@@ -3,8 +3,8 @@ import { createContext, useReducer } from 'react';
 import type { GameAction, GameInitialState } from './types/gameState';
 import { gameReducer, initGame } from './state/gameState';
 
-const GameActionsContext = createContext<React.Dispatch<GameAction>>(() => {});
-const GameValueContext = createContext<GameInitialState>(initGame);
+export const GameActionsContext = createContext<React.Dispatch<GameAction>>(() => {});
+export const GameValueContext = createContext<GameInitialState>(initGame);
 
 type Props = {
   children: React.ReactNode;
