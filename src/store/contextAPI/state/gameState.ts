@@ -1,4 +1,5 @@
 import { PLAYER1, PLAYER2 } from '@/components/player/constants/player';
+import { Player } from '@/components/player/types/player';
 
 import type { GameAction, GameInitialState } from '../types/gameState';
 
@@ -18,7 +19,7 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
       const currentIndex = state.players.findIndex((player) => player.id === state.turn);
       const nextIndex = (currentIndex + 1) % state.players.length;
 
-      return { ...state, turn: nextIndex };
+      return { ...state, turn: nextIndex as Player['id'] };
     }
 
     case 'CHANGE_BOARD_SIZE':
