@@ -1,0 +1,8 @@
+@keyframes moveUp {
+  from {
+    transform: translateY(1.5rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
