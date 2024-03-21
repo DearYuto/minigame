@@ -12,9 +12,10 @@ import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GamePro
 import { createBoard } from './utils/createBoard';
 import { shuffledPlayers } from './utils/shuffledPlayers';
 import { toast } from 'react-toastify';
+import { checkWin } from './utils/checkWin';
 
 export default function Gameboard() {
-  const { players, boardSize, turn } = useContext(GameValueContext);
+  const { players, boardSize, turn, winningCondition } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
   const [board, setBoard] = useState(() => createBoard(boardSize, boardSize));
@@ -38,6 +39,8 @@ export default function Gameboard() {
 
     const [row, cell] = target.id.split(',').map(Number);
 
+    if (board[row][cell] !== null) return;
+
     setBoard((prev) => {
       const newBoard = [...prev];
       newBoard[row][cell] = turn;
@@ -51,12 +54,21 @@ export default function Gameboard() {
       return newHistory;
     });
 
+    // 우승자 체크
+    const newBoard = [...board];
+    newBoard[row][cell] = turn;
+    const hasWinner = checkWin(newBoard, players[turn!].id, winningCondition);
+
+    if (hasWinner) {
+      toast.success(`우승자는 플레이어 ${players[turn!].id + 1}입니다.`);
+    }
+
     setIsUndoUsed(false);
 
     changeTurn();
   };
 
-  console.log({ history, board });
+  console.log({ history, board, players });
 
   const changeTurn = () => {
     dispatch({
@@ -66,7 +78,6 @@ export default function Gameboard() {
   };
 
   const onClickUndo = () => {
-    // 무르기를 하면, 게임 판 마크 제거하고 , 히스토리 pop
     if (history.length === 0) return;
 
     if (isUndoUsed) {
@@ -98,10 +109,6 @@ export default function Gameboard() {
         undoLimit: players[turn!].undoLimit - 1,
       },
     });
-  };
-
-  const checkWinCondition = () => {
-    // 승리 조건 체크
   };
 
   // 더 둘곳 없는지 없으면 무승부로 체크하는 로직 추가
