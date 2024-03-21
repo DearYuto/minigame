@@ -12,6 +12,10 @@ export type GameInitialState = {
   gameMap: Array<Array<HTMLElement>>;
 };
 
+type InitGame = {
+  type: 'INIT_GAME';
+};
+
 type ChangeTurnAction = {
   type: 'CHANGE_TURN';
   value: Player['id'];
@@ -69,4 +73,5 @@ export type GameAction =
   | ChangeMark
   | ChangeColor
   | ChangeUndo
-  | ChangeGamemap;
+  | ChangeGamemap
+  | InitGame;

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { GameActionsContext } from '@/store/contextAPI/GameProvider';
 
@@ -6,6 +6,12 @@ import type { GameAction } from '@/store/contextAPI/types/gameState';
 
 export default function Main() {
   const dispatch = useContext(GameActionsContext);
+
+  useEffect(() => {
+    dispatch({
+      type: 'INIT_GAME',
+    });
+  }, []);
 
   const onClick = (action: GameAction) => () => {
     dispatch(action);

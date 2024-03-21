@@ -17,6 +17,10 @@ export const initGame: GameInitialState = {
 
 export const gameReducer = (state: GameInitialState, action: GameAction) => {
   switch (action.type) {
+    case 'INIT_GAME': {
+      return { ...initGame };
+    }
+
     case 'CHANGE_TURN': {
       const currentIndex = state.players.findIndex((player) => player.id === action.value);
       const nextIndex = (currentIndex + 1) % state.players.length;

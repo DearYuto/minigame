@@ -4,23 +4,24 @@ import { GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { marks } from './constants/player';
 
+import './styles/player.css';
+
 export default function Player() {
-  const { players, turn } = useContext(GameValueContext);
+  const { players } = useContext(GameValueContext);
 
   return (
-    <div>
-      <div>현재 턴 : 플레이어 {turn! + 1}</div>
+    <section className="players">
       {players.map((player) => {
         return (
-          <div key={player.id}>
-            <div>플레이어 {player.id + 1}</div>
-            <div style={{ color: player.color }}>
+          <div className="player" key={player.id}>
+            <h2 className="player__name">플레이어 {player.id + 1}</h2>
+            <p className="player__color" style={{ color: player.color }}>
               {marks.find(({ name }) => name === player.mark)?.mark}
-            </div>
-            <div>무르기 : {player.undoLimit}</div>
+            </p>
+            <p>남은 무르기 횟수 : {player.undoLimit}</p>
           </div>
         );
       })}
-    </div>
+    </section>
   );
 }
