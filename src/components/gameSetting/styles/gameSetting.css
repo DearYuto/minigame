@@ -38,8 +38,7 @@
   font-weight: bold;
 }
 
-.game-setting__map-size,
-.game-setting__winning-condition {
+.game-setting__condition-controller {
   display: flex;
   flex-direction: column;
   align-items: center;

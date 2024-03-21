@@ -11,11 +11,15 @@ import { ERROR_MESSAGE } from '@/constants/messages';
 
 import PlayerSelector from '../player/PlayerSelector';
 import { DoubleArrowDownIcon, DoubleArrowUpIcon } from '@radix-ui/react-icons';
+import GameConditionController from './GameConditionController';
 
 export default function GameSetting() {
   const { boardSize, winningCondition, players } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
+  /**
+   * 게임 맵 크기 설정
+   */
   const decreaseSize = () => {
     const size = boardSize - 1;
 
@@ -41,6 +45,9 @@ export default function GameSetting() {
     dispatch({ type: 'CHANGE_BOARD_SIZE', value: boardSize + 1 });
   };
 
+  /**
+   * 승리 조건 설정
+   */
   const decreaseWinningCondition = () => {
     console.log(winningCondition - 1, boardSize);
     if (!validateWinningCondition(winningCondition - 1, boardSize)) {
@@ -60,6 +67,9 @@ export default function GameSetting() {
     dispatch({ type: 'CHANGE_WINNING_CONDITION', value: winningCondition + 1 });
   };
 
+  /**
+   * 게임 시작
+   */
   const onClickStart = () => {
     const marksSet = new Set(players.map((player) => player.mark));
     const colorsSet = new Set(players.map((player) => player.color));
@@ -80,39 +90,21 @@ export default function GameSetting() {
       <h2 className="game-setting__title">게임 설정</h2>
 
       <div className="game-setting__condition">
-        <div className="game-setting__map-size">
-          <label>게임 맵 크기</label>
-          <small>(최소 3, 최대 10)</small>
-          <div className="game-setting__controller">
-            <button onClick={decreaseSize}>
-              <DoubleArrowDownIcon className="game-setting__controller--down" />
-            </button>
-            <input readOnly type="text" value={boardSize} />
-            <button onClick={increaseSize}>
-              <DoubleArrowUpIcon className="game-setting__controller--up" />
-            </button>
-          </div>
-        </div>
+        <GameConditionController
+          label="게임 맵 크기"
+          labelDesc="(최소 3, 최대 10)"
+          value={boardSize}
+          onDecrease={decreaseSize}
+          onIncrease={increaseSize}
+        />
 
-        <div className="game-setting__winning-condition">
-          <label htmlFor="winning-condition">승리 조건</label>
-          <small>(최소 3, 최대 {boardSize})</small>
-          <div className="game-setting__controller">
-            <button onClick={decreaseWinningCondition}>
-              <DoubleArrowDownIcon className="game-setting__controller--down" />
-            </button>
-            <input
-              readOnly
-              value={winningCondition}
-              id="winning-condition"
-              type="text"
-              placeholder="승리 조건을 설정해주세요. (3 이상)"
-            />
-            <button onClick={increaseWinningCondition}>
-              <DoubleArrowUpIcon className="game-setting__controller--up" />
-            </button>
-          </div>
-        </div>
+        <GameConditionController
+          label="승리 조건"
+          labelDesc={`최소 3, 최대 ${boardSize}`}
+          value={winningCondition}
+          onDecrease={decreaseWinningCondition}
+          onIncrease={increaseWinningCondition}
+        />
       </div>
 
       <h2 className="game-setting__title">플레이어 마크 선택</h2>
