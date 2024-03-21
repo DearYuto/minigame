@@ -13,6 +13,7 @@ import { createBoard } from './utils/createBoard';
 import { shuffledPlayers } from './utils/shuffledPlayers';
 import { toast } from 'react-toastify';
 import { checkWin } from './utils/checkWin';
+import { checkDraw } from './utils/checkDraw';
 
 export default function Gameboard() {
   const { players, boardSize, turn, winningCondition } = useContext(GameValueContext);
@@ -54,13 +55,19 @@ export default function Gameboard() {
       return newHistory;
     });
 
-    // 우승자 체크
+    // 우승자, 무승부 체크
     const newBoard = [...board];
     newBoard[row][cell] = turn;
+
     const hasWinner = checkWin(newBoard, players[turn!].id, winningCondition);
 
     if (hasWinner) {
       toast.success(`우승자는 플레이어 ${players[turn!].id + 1}입니다.`);
+    }
+
+    const isDraw = checkDraw(newBoard);
+    if (!hasWinner && isDraw) {
+      toast('무승부입니다.');
     }
 
     setIsUndoUsed(false);
