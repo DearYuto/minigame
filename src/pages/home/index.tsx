@@ -1,19 +1,35 @@
 import { useState } from 'react';
+
 import './styles/home.css';
 
-export default function HomePage() {
-  const [isPlaying, setIsPlaying] = useState(false);
+import GameSetting from '@/components/gameSetting';
+import Gameboard from '@/components/gameboard';
+import Main from '@/components/main';
+import Step from '@/components/step';
 
-  const onClickStartGame = () => {};
+type Step = 'MAIN' | 'SETTING' | 'GAME' | 'HISTORY';
+
+export default function HomePage() {
+  const [step, setStep] = useState<Step>('MAIN');
 
   return (
-    <div className="game-board">
-      <div className="buttons">
-        <button className="button button--start" onClick={onClickStartGame}>
-          게임 시작
-        </button>
-        <button className="button button--record">기록</button>
-      </div>
+    <div className="container">
+      <Step shouldRender={step === 'MAIN'}>
+        <Main />
+      </Step>
+
+      <Step shouldRender={step === 'GAME'}>
+        <Gameboard />
+      </Step>
+
+      <Step shouldRender={step === 'SETTING'}>
+        <GameSetting />
+      </Step>
+
+      <Step shouldRender={step === 'HISTORY'}>
+        <></>
+      </Step>
+      <GameSetting />
     </div>
   );
 }
