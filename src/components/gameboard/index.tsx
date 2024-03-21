@@ -1,21 +1,25 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import './styles/gameboard.css';
 
 import Cell from './Cell';
 import Row from './Row';
-import Player from '../player/Player';
 import MainButton from '../mainButton';
 
 import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { createBoard } from './utils/createBoard';
 import { shuffledPlayers } from './utils/shuffledPlayers';
-import { toast } from 'react-toastify';
 import { checkWin } from './utils/checkWin';
 import { checkDraw } from './utils/checkDraw';
-import GameTimer from '../gameTimer';
 
+import GameTimer from '../gameTimer';
+import type { Player } from '../player/types/player';
+import PlayerComponent from '../player/Player';
+import GameResult from '../gameResult';
+
+// TODO 히스토리 전역 상태로 리팩토링, board도 gameMap 전역 상태로 변경해야함
 export default function Gameboard() {
   const { players, boardSize, turn, winningCondition } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
@@ -23,6 +27,11 @@ export default function Gameboard() {
   const [board, setBoard] = useState(() => createBoard(boardSize, boardSize));
   const [history, setHistory] = useState<number[][]>([]);
   const [isUndoUsed, setIsUndoUsed] = useState(false);
+
+  const [winner, setWinner] = useState<Player['id']>();
+  const [gameOver, setGameOver] = useState(false);
+
+  // TODO 중복 로직 제거 필요
 
   useEffect(() => {
     if (!turn) {
@@ -64,11 +73,14 @@ export default function Gameboard() {
 
     if (hasWinner) {
       toast.success(`우승자는 플레이어 ${players[turn!].id + 1}입니다.`);
+      setWinner(players[turn!].id);
+      setGameOver(true);
     }
 
     const isDraw = checkDraw(newBoard);
     if (!hasWinner && isDraw) {
       toast('무승부입니다.');
+      setGameOver(true);
     }
 
     setIsUndoUsed(false);
@@ -146,28 +158,36 @@ export default function Gameboard() {
     // 우승자, 무승부 체크
 
     const hasWinner = checkWin(board, players[turn!].id, winningCondition);
-
     if (hasWinner) {
       toast.success(`우승자는 플레이어 ${players[turn!].id + 1}입니다.`);
+      setWinner(players[turn!].id);
+      setGameOver(true);
     }
 
     const isDraw = checkDraw(board);
     if (!hasWinner && isDraw) {
       toast('무승부입니다.');
+      setGameOver(true);
     }
   };
 
   return (
     <>
       <MainButton />
-      <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
-      <Player />
-      <table className="game-board" onClick={onClick}>
-        <tbody>{Cells}</tbody>
-      </table>
-      <button disabled={history.length <= 0} onClick={onClickUndo}>
-        무르기
-      </button>
+      {gameOver ? (
+        <GameResult board={board} winner={winner} history={history} />
+      ) : (
+        <>
+          <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
+          <PlayerComponent />
+          <table className="game-board" onClick={onClick}>
+            <tbody>{Cells}</tbody>
+          </table>
+          <button disabled={history.length <= 0} onClick={onClickUndo}>
+            무르기
+          </button>
+        </>
+      )}
     </>
   );
 }

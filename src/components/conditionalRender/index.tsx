@@ -7,6 +7,7 @@ import Step from '../step';
 
 import { GameValueContext } from '@/store/contextAPI/GameProvider';
 import MainButton from '../mainButton';
+import GameHistory from '../gameHistory';
 
 export default function ConditionalRender() {
   const { gameStep } = useContext(GameValueContext);
@@ -28,7 +29,8 @@ export default function ConditionalRender() {
       </Step>
 
       <Step shouldRender={gameStep === 'HISTORY'}>
-        <></>
+        <MainButton />
+        <GameHistory />
       </Step>
     </>
   );
