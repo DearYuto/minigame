@@ -9,4 +9,8 @@ const ERROR_MESSAGE = {
   SAME_PLAYER: '모든 플레이어의 마크와 색상이 동일합니다.',
 } as const;
 
-export { ERROR_MESSAGE };
+const MESSAGE = {
+  TIME_OVER: '시간초과! 다음 플레이어로 턴이 넘어갑니다.',
+};
+
+export { ERROR_MESSAGE, MESSAGE };

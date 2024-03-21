@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import './styles/timer.css';
 
@@ -9,6 +9,8 @@ import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GamePro
 import { getRandomSpaces } from '../gameboard/utils/randomMarking';
 import { shuffledPlayers } from '../gameboard/utils/shuffledPlayers';
 import { toast } from 'react-toastify';
+import { useTimer } from './hooks/useTimer';
+import { MESSAGE } from '@/constants/messages';
 
 type Props = {
   board: Array<Array<number>>;
@@ -17,18 +19,19 @@ type Props = {
 };
 
 export default function GameTimer({ board, setBoard, updateHistory }: Props) {
-  const [timer, setTimer] = useState<number>(GAME_RULE.timer);
+  const { time, resetTimer } = useTimer(GAME_RULE.timer);
 
   const { turn, players } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
   useEffect(() => {
-    setTimer(GAME_RULE.timer);
-  }, [turn]);
+    resetTimer();
+  }, [turn, resetTimer]);
 
   useEffect(() => {
-    if (timer <= 0) {
+    if (time <= 0) {
       const spaces = getRandomSpaces(board);
+
       if (spaces) {
         // 보드에 빈 공간이 있는지 체크
         const [row, col] = spaces;
@@ -43,22 +46,16 @@ export default function GameTimer({ board, setBoard, updateHistory }: Props) {
           type: 'CHANGE_TURN',
           value: turn ?? shuffledPlayers(players)[0].id,
         });
-        toast('시간초과! 다음 플레이어로 턴이 넘어갑니다.');
+        toast(MESSAGE.TIME_OVER);
 
         // 히스토리 동기화
         updateHistory(row, col);
       }
 
       // 타이머 리셋
-      setTimer(GAME_RULE.timer);
+      resetTimer();
     }
-    // 타이머 감소 시작
-    const intervalId = setInterval(() => {
-      setTimer((prev) => prev - 1);
-    }, 1_000);
+  }, [time, resetTimer, board, turn, players, setBoard, dispatch, updateHistory]);
 
-    return () => clearInterval(intervalId);
-  }, [timer, board, turn, players, setBoard, dispatch, updateHistory]);
-
-  return <time className="timer">{timer}</time>;
+  return <time className="timer">{time}</time>;
 }

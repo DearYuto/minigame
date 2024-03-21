@@ -186,7 +186,7 @@ export default function Gameboard() {
       <>
         <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
         <p className="player-turn">
-          <strong>{turn! + 1}번 플레이어</strong> 차례입니다.{' '}
+          <strong>{turn! + 1}번 플레이어</strong> 차례입니다.
         </p>
 
         <PlayerComponent />

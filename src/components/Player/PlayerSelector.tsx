@@ -7,7 +7,6 @@ import { colors, marks } from './constants/player';
 import './styles/playerSelector.css';
 
 import { GameActionsContext } from '@/store/contextAPI/GameProvider';
-import { MarkSymbol } from './types/marks';
 
 type Props = {
   id: number;
@@ -20,8 +19,6 @@ export default function PlayerSelector({ defaultMark, defaultColor, id = 0 }: Pr
 
   const onChangeMark = (e: React.ChangeEvent<HTMLFormElement>) => {
     const foundMark = marks.find((m) => m.name === e.target.value)!;
-
-    console.log(foundMark, e.target.value);
 
     dispatch({
       type: 'CHANGE_MARK',
