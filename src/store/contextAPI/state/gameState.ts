@@ -7,7 +7,7 @@ import { GAME_RULE } from '@/constants/gameRule';
 
 export const initGame: GameInitialState = {
   players: [{ ...PLAYER1 }, { ...PLAYER2 }],
-  status: [],
+  history: [],
   turn: null,
   boardSize: GAME_RULE.boardSize,
   winningCondition: GAME_RULE.winningCondition,

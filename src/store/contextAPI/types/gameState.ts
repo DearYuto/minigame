@@ -4,7 +4,7 @@ import { Player } from '@/components/player/types/player';
 
 export type GameInitialState = {
   players: Player[];
-  status: unknown[];
+  history: unknown[];
   turn: Player['id'] | null;
   boardSize: number;
   winningCondition: number;
