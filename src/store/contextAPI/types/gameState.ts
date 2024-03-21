@@ -9,6 +9,7 @@ export type GameInitialState = {
   boardSize: number;
   winningCondition: number;
   gameStep: GameStep;
+  gameMap: Array<Array<HTMLElement>>;
 };
 
 type ChangeTurnAction = {
@@ -47,10 +48,25 @@ type ChangeColor = {
   };
 };
 
+type ChangeUndo = {
+  type: 'CHANGE_UNDO';
+  value: {
+    id: Player['id'];
+    undoLimit: number;
+  };
+};
+
+type ChangeGamemap = {
+  type: 'CHANGE_GAMEMAP';
+  value: Array<Array<HTMLElement>>;
+};
+
 export type GameAction =
   | ChangeTurnAction
   | ChangeBoardSizeAction
   | ChangeWinningConditionAction
   | ChangeStep
   | ChangeMark
-  | ChangeColor;
+  | ChangeColor
+  | ChangeUndo
+  | ChangeGamemap;

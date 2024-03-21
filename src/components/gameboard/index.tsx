@@ -1,21 +1,25 @@
-import { useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 
 import './styles/gameboard.css';
 
 import Cell from './Cell';
 import Row from './Row';
+import Player from '../player/Player';
+import { marks } from '../player/constants/player';
+import MainButton from '../mainButton';
 
 import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { createBoard } from './utils/createBoard';
 import { shuffledPlayers } from './utils/shuffledPlayers';
-import Player from '../player/Player';
-import MainButton from '../mainButton';
-import { marks } from '../player/constants/player';
 
 export default function Gameboard() {
   const { players, boardSize, turn } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
+
+  const [board, setBoard] = useState(() => createBoard(boardSize, boardSize));
+
+  console.log(board);
 
   useEffect(() => {
     if (!turn) {
@@ -29,9 +33,20 @@ export default function Gameboard() {
 
   const onClick = (e: React.MouseEvent<HTMLTableElement>) => {
     const target = e.target as HTMLElement;
+
+    if (target.tagName !== 'TD' || target.children.length > 0) return;
+
     target.innerHTML = `<p style="color: ${players[turn!].color}; text-align : center">
         ${marks.find(({ name }) => name === players[turn!].mark)?.mark ?? ''}
       </p>`;
+
+    const [row, cell] = target.id.split(',').map(Number);
+
+    setBoard((prev) => {
+      const newBoard = [...prev];
+      newBoard[row][cell] = turn;
+      return newBoard;
+    });
 
     changeTurn();
   };
@@ -43,7 +58,11 @@ export default function Gameboard() {
     });
   };
 
-  const board = useMemo(() => createBoard(boardSize, boardSize), [boardSize]);
+  const checkWinCondition = () => {
+    // 승리 조건 체크
+  };
+
+  // 더 둘곳 없는지 없으면 무승부로 체크하는 로직 추가
 
   const Cells = useMemo(
     () =>
@@ -53,7 +72,7 @@ export default function Gameboard() {
             {
               <>
                 {row.map((_, cellIdx) => {
-                  return <Cell id={`[${rowIdx}][${cellIdx}]`} key={`cell ${cellIdx}`} />;
+                  return <Cell id={`${rowIdx},${cellIdx}`} key={`cell ${cellIdx}`} />;
                 })}
               </>
             }

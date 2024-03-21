@@ -12,6 +12,7 @@ export const initGame: GameInitialState = {
   boardSize: GAME_RULE.boardSize,
   winningCondition: GAME_RULE.winningCondition,
   gameStep: 'MAIN',
+  gameMap: [[]],
 };
 
 export const gameReducer = (state: GameInitialState, action: GameAction) => {
@@ -54,6 +55,22 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
         };
       });
       newPlayers[action.value.id].color = action.value.color;
+
+      return {
+        ...state,
+        players: newPlayers,
+      };
+    }
+
+    case 'CHANGE_UNDO': {
+      const newPlayers = state.players.map((player) => {
+        return {
+          ...player,
+        };
+      });
+
+      const playerId = action.value.id;
+      newPlayers[playerId].undoLimit = state.players[playerId].undoLimit - 1;
 
       return {
         ...state,
