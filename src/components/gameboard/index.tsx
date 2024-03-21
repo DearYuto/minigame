@@ -2,10 +2,12 @@ import { useContext, useMemo } from 'react';
 
 import './styles/gameboard.css';
 
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
-import { createBoard } from '@/utils/createBoard';
 import Cell from './Cell';
 import Row from './Row';
+
+import { GameValueContext } from '@/store/contextAPI/GameProvider';
+
+import { createBoard } from './utils/createBoard';
 
 export default function Gameboard() {
   const { boardSize } = useContext(GameValueContext);

@@ -6,6 +6,7 @@ import Main from '../main';
 import Step from '../step';
 
 import { GameValueContext } from '@/store/contextAPI/GameProvider';
+import MainButton from '../mainButton';
 
 export default function ConditionalRender() {
   const { gameStep } = useContext(GameValueContext);
@@ -13,6 +14,7 @@ export default function ConditionalRender() {
   return (
     <>
       <Step shouldRender={gameStep === 'MAIN'}>
+        <h1 className="title">TicTacTional</h1>
         <Main />
       </Step>
 
@@ -21,6 +23,7 @@ export default function ConditionalRender() {
       </Step>
 
       <Step shouldRender={gameStep === 'SETTING'}>
+        <MainButton />
         <GameSetting />
       </Step>
 
