@@ -46,3 +46,24 @@
   border: 2px solid var(--gray-color-700);
   box-shadow: 2px 4px 0px var(--gray-color-700);
 }
+
+.button--route {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  padding: 0;
+  color: var(--gray-color-600);
+  background-color: var(--gray-color-200);
+  transition: all 0.2s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 1rem;
+}
+.button--route:hover {
+  transform: none;
+  background-color: var(--gray-color-300);
+}
+.button--route svg {
+  scale: 1.8;
+}

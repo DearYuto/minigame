@@ -4,6 +4,7 @@
   justify-content: center;
   align-items: center;
 
+  margin-top: 40px;
   padding: 1.5rem;
 }
 
@@ -16,18 +17,14 @@
   text-align: center;
 
   color: white;
-  background-color: var(--primary-color);
-  border: 2px solid var(--primary-dark-color);
+  background-color: var(--secondary-color);
+  border: 2px solid var(--secondary-dark-color);
   border-radius: 24px;
   border-radius: 20px;
-  box-shadow: 2px 4px 0px var(--primary-dark-color);
+  box-shadow: 2px 4px 0px var(--secondary-dark-color);
 
   transition: all 0.1s;
   cursor: default;
-}
-
-.game-setting__title:hover {
-  transform: translateY(2px);
 }
 
 .game-setting__condition {
@@ -47,8 +44,10 @@
   flex-direction: column;
   align-items: center;
 
+  background-color: white;
+
   border-radius: 1rem;
-  border: 1px dashed var(--gray-color-500);
+  border: 3px dashed var(--gray-color-500);
   padding: 1rem;
 }
 
@@ -88,4 +87,12 @@
 .game-setting__controller--down,
 .game-setting__controller--up {
   margin-top: 5px;
+}
+
+.game-setting__button {
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+.game-setting__button .button--start {
+  width: 500px;
 }

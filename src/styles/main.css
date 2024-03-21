@@ -1,6 +1,7 @@
 @import url('./reset.css');
 @import url('./colors.css');
 @import url('./animation.css');
+@import url('./buttons.css');
 
 @font-face {
   font-family: 'yg-jalnan';
@@ -42,6 +43,9 @@
   margin: 0 auto;
 
   background-color: #eee;
+
+  position: relative;
+  overflow-y: scroll;
 }
 
 .title {
