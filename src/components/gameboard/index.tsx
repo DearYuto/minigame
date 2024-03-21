@@ -5,21 +5,21 @@ import './styles/gameboard.css';
 import Cell from './Cell';
 import Row from './Row';
 import Player from '../player/Player';
-import { marks } from '../player/constants/player';
 import MainButton from '../mainButton';
 
 import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { createBoard } from './utils/createBoard';
 import { shuffledPlayers } from './utils/shuffledPlayers';
+import { toast } from 'react-toastify';
 
 export default function Gameboard() {
   const { players, boardSize, turn } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
   const [board, setBoard] = useState(() => createBoard(boardSize, boardSize));
-
-  console.log(board);
+  const [history, setHistory] = useState<number[][]>([]);
+  const [isUndoUsed, setIsUndoUsed] = useState(false);
 
   useEffect(() => {
     if (!turn) {
@@ -36,10 +36,6 @@ export default function Gameboard() {
 
     if (target.tagName !== 'TD' || target.children.length > 0) return;
 
-    target.innerHTML = `<p style="color: ${players[turn!].color}; text-align : center">
-        ${marks.find(({ name }) => name === players[turn!].mark)?.mark ?? ''}
-      </p>`;
-
     const [row, cell] = target.id.split(',').map(Number);
 
     setBoard((prev) => {
@@ -48,13 +44,59 @@ export default function Gameboard() {
       return newBoard;
     });
 
+    setHistory((prev) => {
+      const newHistory = [...prev];
+      newHistory.push([row, cell]);
+
+      return newHistory;
+    });
+
+    setIsUndoUsed(false);
+
     changeTurn();
   };
+
+  console.log({ history, board });
 
   const changeTurn = () => {
     dispatch({
       type: 'CHANGE_TURN',
       value: turn ?? shuffledPlayers(players)[0].id,
+    });
+  };
+
+  const onClickUndo = () => {
+    // 무르기를 하면, 게임 판 마크 제거하고 , 히스토리 pop
+    if (history.length === 0) return;
+
+    if (isUndoUsed) {
+      toast.error('무르기를 이미 사용했어요.');
+      return;
+    }
+
+    if (players[turn!].undoLimit <= 0) {
+      toast.error('무르기를 더이상 사용할 수 없어요.');
+      return;
+    }
+
+    const newHistory = history.slice(0, history.length - 1);
+    const lastMove = history[history.length - 1];
+
+    setHistory(() => newHistory);
+    setBoard((prev) => {
+      const newBoard = prev.map((row) => [...row]);
+      newBoard[lastMove[0]][lastMove[1]] = null;
+      return newBoard;
+    });
+
+    setIsUndoUsed(true);
+
+    dispatch({
+      type: 'CHANGE_UNDO',
+      value: {
+        id: turn!,
+        undoLimit: players[turn!].undoLimit - 1,
+      },
     });
   };
 
@@ -72,7 +114,11 @@ export default function Gameboard() {
             {
               <>
                 {row.map((_, cellIdx) => {
-                  return <Cell id={`${rowIdx},${cellIdx}`} key={`cell ${cellIdx}`} />;
+                  return (
+                    <Cell id={`${rowIdx},${cellIdx}`} key={`cell ${cellIdx}`}>
+                      {board[rowIdx][cellIdx]}
+                    </Cell>
+                  );
                 })}
               </>
             }
@@ -89,6 +135,9 @@ export default function Gameboard() {
       <table className="game-board" onClick={onClick}>
         <tbody>{Cells}</tbody>
       </table>
+      <button disabled={history.length <= 0} onClick={onClickUndo}>
+        무르기
+      </button>
     </>
   );
 }
