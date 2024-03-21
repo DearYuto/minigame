@@ -8,9 +8,10 @@ import { shuffledPlayers } from '../gameboard/utils/shuffledPlayers';
 type Props = {
   board: Array<Array<number>>;
   setBoard: React.Dispatch<React.SetStateAction<number[][]>>;
+  updateHistory: (row: number, col: number) => void;
 };
 
-export default function GameTimer({ board, setBoard }: Props) {
+export default function GameTimer({ board, setBoard, updateHistory }: Props) {
   const [timer, setTimer] = useState<number>(GAME_RULE.timer);
 
   const { turn, players } = useContext(GameValueContext);
@@ -37,7 +38,11 @@ export default function GameTimer({ board, setBoard }: Props) {
           type: 'CHANGE_TURN',
           value: turn ?? shuffledPlayers(players)[0].id,
         });
+
+        // 히스토리 동기화
+        updateHistory(row, col);
       }
+
       // 타이머 리셋
       setTimer(GAME_RULE.timer);
     }
@@ -47,7 +52,7 @@ export default function GameTimer({ board, setBoard }: Props) {
     }, 1_000);
 
     return () => clearInterval(intervalId);
-  }, [timer, board, turn, players, setBoard, dispatch]);
+  }, [timer, board, turn, players, setBoard, dispatch, updateHistory]);
 
   return <time>{timer}</time>;
 }

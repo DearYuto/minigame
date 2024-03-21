@@ -39,26 +39,26 @@ export default function Gameboard() {
 
     if (target.tagName !== 'TD' || target.children.length > 0) return;
 
-    const [row, cell] = target.id.split(',').map(Number);
+    const [row, col] = target.id.split(',').map(Number);
 
-    if (board[row][cell] !== null) return;
+    if (board[row][col] !== null) return;
 
     setBoard((prev) => {
       const newBoard = [...prev];
-      newBoard[row][cell] = turn;
+      newBoard[row][col] = turn;
       return newBoard;
     });
 
     setHistory((prev) => {
       const newHistory = [...prev];
-      newHistory.push([row, cell]);
+      newHistory.push([row, col]);
 
       return newHistory;
     });
 
     // 우승자, 무승부 체크
     const newBoard = [...board];
-    newBoard[row][cell] = turn;
+    newBoard[row][col] = turn;
 
     const hasWinner = checkWin(newBoard, players[turn!].id, winningCondition);
 
@@ -139,10 +139,28 @@ export default function Gameboard() {
     [board]
   );
 
+  const updateHistory = (row: number, col: number) => {
+    setHistory((prevHistory) => [...prevHistory, [row, col]]);
+    setIsUndoUsed(false);
+
+    // 우승자, 무승부 체크
+
+    const hasWinner = checkWin(board, players[turn!].id, winningCondition);
+
+    if (hasWinner) {
+      toast.success(`우승자는 플레이어 ${players[turn!].id + 1}입니다.`);
+    }
+
+    const isDraw = checkDraw(board);
+    if (!hasWinner && isDraw) {
+      toast('무승부입니다.');
+    }
+  };
+
   return (
     <>
       <MainButton />
-      <GameTimer board={board} setBoard={setBoard} />
+      <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
       <Player />
       <table className="game-board" onClick={onClick}>
         <tbody>{Cells}</tbody>
