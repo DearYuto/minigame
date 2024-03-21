@@ -1,9 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 
+import './styles/timer.css';
+
 import { GAME_RULE } from '@/constants/gameRule';
+
 import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
+
 import { getRandomSpaces } from '../gameboard/utils/randomMarking';
 import { shuffledPlayers } from '../gameboard/utils/shuffledPlayers';
+import { toast } from 'react-toastify';
 
 type Props = {
   board: Array<Array<number>>;
@@ -38,6 +43,7 @@ export default function GameTimer({ board, setBoard, updateHistory }: Props) {
           type: 'CHANGE_TURN',
           value: turn ?? shuffledPlayers(players)[0].id,
         });
+        toast('시간초과! 다음 플레이어로 턴이 넘어갑니다.');
 
         // 히스토리 동기화
         updateHistory(row, col);
@@ -54,5 +60,5 @@ export default function GameTimer({ board, setBoard, updateHistory }: Props) {
     return () => clearInterval(intervalId);
   }, [timer, board, turn, players, setBoard, dispatch, updateHistory]);
 
-  return <time>{timer}</time>;
+  return <time className="timer">{timer}</time>;
 }

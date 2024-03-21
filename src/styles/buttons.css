@@ -67,3 +67,15 @@
 .button--route svg {
   scale: 1.8;
 }
+
+.button--undo {
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-dark-color);
+  box-shadow: 2px 4px 0px var(--primary-dark-color);
+}
+.button--undo:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-color-600);
+  border: 2px solid var(--gray-color-700);
+  box-shadow: 2px 4px 0px var(--gray-color-700);
+}

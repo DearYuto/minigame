@@ -1,0 +1,25 @@
+.players {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  gap: 1rem;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1rem;
+  background-color: white;
+  border: 2px dashed var(--gray-color-300);
+}
+
+.player__name {
+  font-size: 1.2rem;
+}
+
+.player__color {
+  font-size: 2rem;
+}

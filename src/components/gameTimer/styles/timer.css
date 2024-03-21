@@ -1,0 +1,19 @@
+.timer {
+  width: 90%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  border-radius: 1rem;
+
+  background-color: white;
+  border: 4px solid var(--gray-color-400);
+  box-shadow: 4px 4px 0 var(--gray-color-600);
+
+  color: var(--primary-color);
+}
+
+.timer::before {
+  color: var(--gray-color-700);
+  content: '남은 시간 : ';
+}

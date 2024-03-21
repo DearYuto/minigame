@@ -174,20 +174,30 @@ export default function Gameboard() {
   return (
     <>
       <MainButton />
-      {gameOver ? (
+      {/* {gameOver ? (
         <GameResult board={board} winner={winner} history={history} />
-      ) : (
-        <>
-          <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
-          <PlayerComponent />
-          <table className="game-board" onClick={onClick}>
-            <tbody>{Cells}</tbody>
-          </table>
-          <button disabled={history.length <= 0} onClick={onClickUndo}>
-            무르기
-          </button>
-        </>
-      )}
+      ) : ( */}
+      <>
+        <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
+        <p className="player-turn">
+          <strong>{turn! + 1}번 플레이어</strong> 차례입니다.{' '}
+        </p>
+
+        <PlayerComponent />
+
+        <table className="game-board" onClick={onClick}>
+          <tbody>{Cells}</tbody>
+        </table>
+
+        <button
+          className="button button--undo"
+          disabled={history.length <= 0}
+          onClick={onClickUndo}
+        >
+          무르기
+        </button>
+      </>
+      {/* )} */}
     </>
   );
 }
