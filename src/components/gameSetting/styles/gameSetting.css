@@ -1,0 +1,91 @@
+.game-setting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1.5rem;
+}
+
+.game-setting__title {
+  font-family: 'yg-jalnan';
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 0.8rem 1rem;
+
+  text-align: center;
+
+  color: white;
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-dark-color);
+  border-radius: 24px;
+  border-radius: 20px;
+  box-shadow: 2px 4px 0px var(--primary-dark-color);
+
+  transition: all 0.1s;
+  cursor: default;
+}
+
+.game-setting__title:hover {
+  transform: translateY(2px);
+}
+
+.game-setting__condition {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.game-setting__condition label {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.game-setting__map-size,
+.game-setting__winning-condition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 1rem;
+  border: 1px dashed var(--gray-color-500);
+  padding: 1rem;
+}
+
+.game-setting__controller {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.game-setting__controller input {
+  width: 40px;
+
+  border: none;
+  outline: none;
+
+  cursor: auto;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.game-setting__controller button {
+  cursor: pointer;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+
+  font-size: 0.7rem;
+  color: var(--white-color);
+  background-color: var(--gray-color-500);
+}
+
+.game-setting__controller button:hover {
+  background-color: var(--gray-color-400);
+}
+
+.game-setting__controller--down,
+.game-setting__controller--up {
+  margin-top: 5px;
+}
