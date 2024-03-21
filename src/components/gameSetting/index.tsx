@@ -4,72 +4,22 @@ import { toast } from 'react-toastify';
 import './styles/gameSetting.css';
 
 import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
-import { validateBoardSize } from './utils/validateBoardSize';
-import { validateWinningCondition } from './utils/validateWinningCondition';
 
 import { ERROR_MESSAGE } from '@/constants/messages';
 
 import PlayerSelector from '../player/PlayerSelector';
-import { DoubleArrowDownIcon, DoubleArrowUpIcon } from '@radix-ui/react-icons';
 import GameConditionController from './GameConditionController';
+import { useControllBoardSize } from './hooks/useControlBoardSize';
+import { useControlWinningCondition } from './hooks/useControlWinningCondition';
 
 export default function GameSetting() {
-  const { boardSize, winningCondition, players } = useContext(GameValueContext);
+  const { players } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
-  /**
-   * 게임 맵 크기 설정
-   */
-  const decreaseSize = () => {
-    const size = boardSize - 1;
+  const { boardSize, decreaseSize, increaseSize } = useControllBoardSize();
+  const { winningCondition, decreaseWinningCondition, increaseWinningCondition } =
+    useControlWinningCondition();
 
-    if (!validateBoardSize(size)) {
-      toast.error(ERROR_MESSAGE.MIN_SIZE);
-      return;
-    }
-
-    if (winningCondition > size) {
-      // 현재 승리 조건이 게임 맵보다 클 경우 게임 맵 사이즈랑 동기화
-      dispatch({ type: 'CHANGE_WINNING_CONDITION', value: size });
-    }
-
-    dispatch({ type: 'CHANGE_BOARD_SIZE', value: size });
-  };
-
-  const increaseSize = () => {
-    if (!validateBoardSize(boardSize + 1)) {
-      toast.error(ERROR_MESSAGE.MAX_SIZE);
-      return;
-    }
-
-    dispatch({ type: 'CHANGE_BOARD_SIZE', value: boardSize + 1 });
-  };
-
-  /**
-   * 승리 조건 설정
-   */
-  const decreaseWinningCondition = () => {
-    console.log(winningCondition - 1, boardSize);
-    if (!validateWinningCondition(winningCondition - 1, boardSize)) {
-      toast.error(ERROR_MESSAGE.MIN_SIZE);
-      return;
-    }
-
-    dispatch({ type: 'CHANGE_WINNING_CONDITION', value: winningCondition - 1 });
-  };
-
-  const increaseWinningCondition = () => {
-    if (!validateWinningCondition(winningCondition + 1, boardSize)) {
-      toast.error(ERROR_MESSAGE.MAX_CONDITION_SIZE);
-      return;
-    }
-
-    dispatch({ type: 'CHANGE_WINNING_CONDITION', value: winningCondition + 1 });
-  };
-
-  /**
-   * 게임 시작
-   */
   const onClickStart = () => {
     const marksSet = new Set(players.map((player) => player.mark));
     const colorsSet = new Set(players.map((player) => player.color));
