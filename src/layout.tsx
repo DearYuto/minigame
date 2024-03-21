@@ -11,10 +11,7 @@ function Layout() {
     <div className="layout">
       <ToastContainer limit={5} autoClose={2_000} />
       <GameProvider>
-        <section className="container">
-          <h1 className="title">TicTackTional</h1>
-          <HomePage />
-        </section>
+        <HomePage />
       </GameProvider>
     </div>
   );

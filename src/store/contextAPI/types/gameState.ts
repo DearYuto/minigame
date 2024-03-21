@@ -1,3 +1,5 @@
+import type { GameStep } from './gameStep';
+
 import { Player } from '@/components/player/types/player';
 
 export type GameInitialState = {
@@ -6,6 +8,7 @@ export type GameInitialState = {
   turn: Player['id'] | null;
   boardSize: number;
   winningCondition: number;
+  gameStep: GameStep;
 };
 
 type ChangeTurnAction = {

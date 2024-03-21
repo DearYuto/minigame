@@ -11,6 +11,7 @@ export const initGame: GameInitialState = {
   turn: null,
   boardSize: GAME_RULE.boardSize,
   winningCondition: GAME_RULE.winningCondition,
+  gameStep: 'MAIN',
 };
 
 export const gameReducer = (state: GameInitialState, action: GameAction) => {
