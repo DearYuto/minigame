@@ -27,7 +27,7 @@ export default function Main() {
           type: 'CHANGE_STEP',
           value: 'HISTORY',
         })}
-        className="button button--record"
+        className="button button--history"
       >
         기록
       </button>

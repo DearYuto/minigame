@@ -14,7 +14,7 @@ export default function GameProvider({ children }: Props) {
 
   return (
     <GameActionsContext.Provider value={dispatch}>
-      <GameValueContext.Provider value={state}>{children}</GameValueContext.Provider>;
+      <GameValueContext.Provider value={state}>{children}</GameValueContext.Provider>
     </GameActionsContext.Provider>
   );
 }
