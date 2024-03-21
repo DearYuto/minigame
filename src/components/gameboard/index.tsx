@@ -14,6 +14,7 @@ import { shuffledPlayers } from './utils/shuffledPlayers';
 import { toast } from 'react-toastify';
 import { checkWin } from './utils/checkWin';
 import { checkDraw } from './utils/checkDraw';
+import GameTimer from '../gameTimer';
 
 export default function Gameboard() {
   const { players, boardSize, turn, winningCondition } = useContext(GameValueContext);
@@ -75,8 +76,6 @@ export default function Gameboard() {
     changeTurn();
   };
 
-  console.log({ history, board, players });
-
   const changeTurn = () => {
     dispatch({
       type: 'CHANGE_TURN',
@@ -118,8 +117,6 @@ export default function Gameboard() {
     });
   };
 
-  // 더 둘곳 없는지 없으면 무승부로 체크하는 로직 추가
-
   const Cells = useMemo(
     () =>
       board.map((row, rowIdx) => {
@@ -145,6 +142,7 @@ export default function Gameboard() {
   return (
     <>
       <MainButton />
+      <GameTimer board={board} setBoard={setBoard} />
       <Player />
       <table className="game-board" onClick={onClick}>
         <tbody>{Cells}</tbody>
