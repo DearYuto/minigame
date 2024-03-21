@@ -26,4 +26,13 @@ type ChangeWinningConditionAction = {
   value: number;
 };
 
-export type GameAction = ChangeTurnAction | ChangeBoardSizeAction | ChangeWinningConditionAction;
+type ChangeStep = {
+  type: 'CHANGE_STEP';
+  value: GameStep;
+};
+
+export type GameAction =
+  | ChangeTurnAction
+  | ChangeBoardSizeAction
+  | ChangeWinningConditionAction
+  | ChangeStep;

@@ -31,6 +31,10 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
     case 'CHANGE_WINNING_CONDITION':
       return { ...state, winningCondition: action.value };
 
+    case 'CHANGE_STEP': {
+      return { ...state, gameStep: action.value };
+    }
+
     default:
       return state;
   }
