@@ -3,8 +3,13 @@
 
 type Props = {
   children?: React.ReactNode;
+  id: string;
 };
 
-export default function Cell({ children }: Props) {
-  return <td className="cell">{children}</td>;
+export default function Cell({ children, id }: Props) {
+  return (
+    <td id={id} className="cell">
+      {children}
+    </td>
+  );
 }
