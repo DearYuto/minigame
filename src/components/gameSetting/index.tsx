@@ -13,6 +13,8 @@ import GameConditionController from './GameConditionController';
 import { useControlBoardSize } from './hooks/useControlBoardSize';
 import { useControlWinningCondition } from './hooks/useControlWinningCondition';
 
+import { validatePlayer } from './utils/validatePlayer';
+
 export default function GameSetting() {
   const { players } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
@@ -22,10 +24,7 @@ export default function GameSetting() {
     useControlWinningCondition();
 
   const onClickStart = () => {
-    const marksSet = new Set(players.map((player) => player.mark));
-    const colorsSet = new Set(players.map((player) => player.color));
-
-    if (marksSet.size !== players.length && colorsSet.size !== players.length) {
+    if (!validatePlayer(players)) {
       toast.error(ERROR_MESSAGE.SAME_PLAYER);
       return;
     }
