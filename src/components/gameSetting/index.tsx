@@ -9,14 +9,15 @@ import { ERROR_MESSAGE } from '@/constants/messages';
 
 import PlayerSelector from '../player/PlayerSelector';
 import GameConditionController from './GameConditionController';
-import { useControllBoardSize } from './hooks/useControlBoardSize';
+
+import { useControlBoardSize } from './hooks/useControlBoardSize';
 import { useControlWinningCondition } from './hooks/useControlWinningCondition';
 
 export default function GameSetting() {
   const { players } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
-  const { boardSize, decreaseSize, increaseSize } = useControllBoardSize();
+  const { boardSize, decreaseSize, increaseSize } = useControlBoardSize();
   const { winningCondition, decreaseWinningCondition, increaseWinningCondition } =
     useControlWinningCondition();
 

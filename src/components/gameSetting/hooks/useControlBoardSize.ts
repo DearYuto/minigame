@@ -7,7 +7,7 @@ import { validateBoardSize } from '../utils/validateBoardSize';
 
 import { ERROR_MESSAGE } from '@/constants/messages';
 
-export const useControllBoardSize = () => {
+export const useControlBoardSize = () => {
   const { boardSize, winningCondition } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
