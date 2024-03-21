@@ -1,11 +1,14 @@
 .buttons {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+  width: 100%;
 }
 
 .button {
   width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
   font-family: 'yg-jalnan';
   padding: 0.8rem 1rem;
   border: none;

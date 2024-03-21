@@ -51,6 +51,7 @@
   padding: 1rem;
   text-align: center;
   color: var(--primary-color);
+  text-transform: uppercase;
 
   background-clip: text;
   -webkit-background-clip: text;
