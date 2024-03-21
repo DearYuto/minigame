@@ -61,9 +61,11 @@ export default function GameSetting() {
   };
 
   const onClickStart = () => {
-    // TODO 플레이어 확장성 고려하면 하드코딩하면 안될듯 ?
-    if (players[0].mark === players[1].mark && players[0].color === players[1].color) {
-      toast.error('모든 플레이어의 마크와 색상이 동일합니다.');
+    const marksSet = new Set(players.map((player) => player.mark));
+    const colorsSet = new Set(players.map((player) => player.color));
+
+    if (marksSet.size !== players.length && colorsSet.size !== players.length) {
+      toast.error(ERROR_MESSAGE.SAME_PLAYER);
       return;
     }
 
