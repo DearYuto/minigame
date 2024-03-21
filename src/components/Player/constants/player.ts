@@ -37,6 +37,6 @@ export const marks = [
     name: 'star',
     mark: '★',
   },
-];
+] as const;
 
-export const colors = ['red', 'blue', 'green', 'black', 'pink'];
+export const colors = ['red', 'blue', 'green', 'black', 'pink'] as const;

@@ -1,6 +1,9 @@
+import { Color } from './colors';
+import { Mark } from './marks';
+
 export type Player = {
-  id: 0 | 1;
-  mark: 'circle' | 'x' | 'triangle' | 'square' | 'star';
-  color: 'red' | 'blue' | 'yellow' | 'green' | 'pink';
+  id: number;
+  mark: Mark;
+  color: Color;
   undoLimit: number;
 };
