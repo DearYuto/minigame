@@ -31,8 +31,26 @@ type ChangeStep = {
   value: GameStep;
 };
 
+type ChangeMark = {
+  type: 'CHANGE_MARK';
+  value: {
+    id: Player['id'];
+    mark: Player['mark'];
+  };
+};
+
+type ChangeColor = {
+  type: 'CHANGE_COLOR';
+  value: {
+    id: Player['id'];
+    color: Player['color'];
+  };
+};
+
 export type GameAction =
   | ChangeTurnAction
   | ChangeBoardSizeAction
   | ChangeWinningConditionAction
-  | ChangeStep;
+  | ChangeStep
+  | ChangeMark
+  | ChangeColor;

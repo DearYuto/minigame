@@ -35,6 +35,34 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
       return { ...state, gameStep: action.value };
     }
 
+    case 'CHANGE_MARK': {
+      const newPlayers = state.players.map((player) => {
+        return {
+          ...player,
+        };
+      });
+      newPlayers[action.value.id].mark = action.value.mark;
+
+      return {
+        ...state,
+        players: newPlayers,
+      };
+    }
+
+    case 'CHANGE_COLOR': {
+      const newPlayers = state.players.map((player) => {
+        return {
+          ...player,
+        };
+      });
+      newPlayers[action.value.id].color = action.value.color;
+
+      return {
+        ...state,
+        players: newPlayers,
+      };
+    }
+
     default:
       return state;
   }
