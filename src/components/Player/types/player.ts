@@ -1,9 +1,10 @@
 import { Color } from './colors';
-import { Mark } from './marks';
+import { MarkName, MarkSymbol } from './marks';
 
 export type Player = {
   id: number;
-  mark: Mark;
+  markName: MarkName;
+  markSymbol: MarkSymbol;
   color: Color;
   undoLimit: number;
 };

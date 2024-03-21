@@ -40,7 +40,8 @@ type ChangeMark = {
   type: 'CHANGE_MARK';
   value: {
     id: Player['id'];
-    mark: Player['mark'];
+    markName: Player['markName'];
+    markSymbol: Player['markSymbol'];
   };
 };
 

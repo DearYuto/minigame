@@ -1,26 +1,34 @@
+import { useContext } from 'react';
+
 import type { Player } from './types/player';
 
 import { colors, marks } from './constants/player';
 
 import './styles/playerSelector.css';
-import { useContext } from 'react';
+
 import { GameActionsContext } from '@/store/contextAPI/GameProvider';
+import { MarkSymbol } from './types/marks';
 
 type Props = {
   id: number;
   defaultColor: Player['color'];
-  defaultMark: Player['mark'];
+  defaultMark: Player['markName'];
 };
 
 export default function PlayerSelector({ defaultMark, defaultColor, id = 0 }: Props) {
   const dispatch = useContext(GameActionsContext);
 
   const onChangeMark = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const foundMark = marks.find((m) => m.name === e.target.value)!;
+
+    console.log(foundMark, e.target.value);
+
     dispatch({
       type: 'CHANGE_MARK',
       value: {
-        id: id as 0 | 1,
-        mark: e.target.value,
+        id,
+        markSymbol: foundMark.mark,
+        markName: foundMark.name,
       },
     });
   };
@@ -29,7 +37,7 @@ export default function PlayerSelector({ defaultMark, defaultColor, id = 0 }: Pr
     dispatch({
       type: 'CHANGE_COLOR',
       value: {
-        id: id as 0 | 1,
+        id,
         color: e.target.value,
       },
     });

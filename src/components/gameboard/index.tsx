@@ -31,6 +31,8 @@ export default function Gameboard() {
   const [winner, setWinner] = useState<Player['id']>();
   const [gameOver, setGameOver] = useState(false);
 
+  console.log(players);
+
   // TODO 중복 로직 제거 필요
 
   useEffect(() => {
@@ -138,8 +140,12 @@ export default function Gameboard() {
               <>
                 {row.map((_, cellIdx) => {
                   return (
-                    <Cell id={`${rowIdx},${cellIdx}`} key={`cell ${cellIdx}`}>
-                      {board[rowIdx][cellIdx]}
+                    <Cell
+                      style={{ color: players[board[rowIdx][cellIdx]]?.color }}
+                      id={`${rowIdx},${cellIdx}`}
+                      key={`cell ${cellIdx}`}
+                    >
+                      {players[board[rowIdx][cellIdx]]?.markSymbol}
                     </Cell>
                   );
                 })}
@@ -148,7 +154,7 @@ export default function Gameboard() {
           </Row>
         );
       }),
-    [board]
+    [board, players]
   );
 
   const updateHistory = (row: number, col: number) => {

@@ -63,7 +63,7 @@ export default function GameSetting() {
           <PlayerSelector
             key={player.id}
             id={player.id}
-            defaultMark={player.mark}
+            defaultMark={player.markName}
             defaultColor={player.color}
           />
         );

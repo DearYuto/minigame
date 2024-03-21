@@ -44,7 +44,8 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
           ...player,
         };
       });
-      newPlayers[action.value.id].mark = action.value.mark;
+      newPlayers[action.value.id].markName = action.value.markName;
+      newPlayers[action.value.id].markSymbol = action.value.markSymbol;
 
       return {
         ...state,

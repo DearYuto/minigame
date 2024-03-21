@@ -16,7 +16,7 @@ export default function Player() {
           <div className="player" key={player.id}>
             <h2 className="player__name">플레이어 {player.id + 1}</h2>
             <p className="player__color" style={{ color: player.color }}>
-              {marks.find(({ name }) => name === player.mark)?.mark}
+              {marks.find(({ name }) => name === player.markName)?.mark}
             </p>
             <p>남은 무르기 횟수 : {player.undoLimit}</p>
           </div>
