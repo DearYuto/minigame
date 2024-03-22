@@ -1,17 +1,13 @@
+import { createEmptySpace } from './createEmptySpace';
+
+const hasEmptySpaces = (emptySpaces: number[][]) => {
+  return emptySpaces.length === 0;
+};
+
 export const getRandomSpaces = (board: Array<Array<number>>) => {
-  const emptySpaces = [];
+  const emptySpaces = createEmptySpace(board);
 
-  for (let row = 0; row < board.length; row++) {
-    for (let col = 0; col < board[row].length; col++) {
-      if (board[row][col] === null || board[row][col] === null) {
-        emptySpaces.push([row, col]);
-      }
-    }
-  }
-
-  if (emptySpaces.length === 0) {
-    return null;
-  }
+  if (hasEmptySpaces(emptySpaces)) return null;
 
   const randomIndex = Math.floor(Math.random() * emptySpaces.length);
   return emptySpaces[randomIndex];
