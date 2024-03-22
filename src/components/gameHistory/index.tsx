@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
+
 import Row from '../gameboard/Row';
 import Cell from '../gameboard/Cell';
-import { Player } from '../player/types/player';
+
+import type { Player } from '../player/types/player';
+
+import './styles/gameHistory.css';
 
 export default function GameHistory() {
   const [histories, setHistories] = useState<
@@ -18,29 +22,30 @@ export default function GameHistory() {
     setHistories([savedGameResults]);
   }, []);
 
-  if (histories.length <= 0) {
-    return <p>NO DATA</p>;
+  if (histories.toString().length === 0) {
+    return <h3>NO DATA</h3>;
   }
 
   return (
-    <div>
+    <div className="game-history">
       <h2>Game History</h2>
-      {histories !== undefined ? (
-        histories.map((game, gameIndex) => (
+      {histories !== undefined || histories !== null ? (
+        histories?.map((game, gameIndex) => (
           <div key={gameIndex}>
             {game.winnerId !== null && game.winnerId !== undefined ? (
-              <>
-                <p>Winner: 플레이어 {game.winnerId + 1}</p>
+              <div className="game-history__winner">
+                <h3>✨ winner ✨</h3>
+                <p>플레이어 {game.winnerId + 1}</p>
                 <p>마크 : {game.players[game.winnerId].markSymbol}</p>
                 <p>컬러 : {game.players[game.winnerId].color}</p>
-              </>
+              </div>
             ) : (
               <p>무승부</p>
             )}
 
-            <table>
+            <table className="game-board">
               <tbody>
-                {game.board.map((row, rowIdx) => (
+                {game?.board?.map((row, rowIdx) => (
                   <Row key={rowIdx}>
                     {row.map((cell, cellIdx) => {
                       const moveIndex = game.history.findIndex(

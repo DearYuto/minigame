@@ -35,13 +35,15 @@
   transform: translateY(2px);
 }
 
+.button--primary,
 .button--start {
   background-color: var(--primary-color);
   border: 2px solid var(--primary-dark-color);
   box-shadow: 2px 4px 0px var(--primary-dark-color);
 }
 
-.button--history {
+.button--history,
+.button--secondary {
   background-color: var(--gray-color-600);
   border: 2px solid var(--gray-color-700);
   box-shadow: 2px 4px 0px var(--gray-color-700);

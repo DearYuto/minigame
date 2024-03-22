@@ -2,6 +2,8 @@ import { useContext } from 'react';
 
 import { Player } from '../player/types/player';
 
+import './styles/gameResult.css';
+
 import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
 
 type Props = {
@@ -26,16 +28,24 @@ export default function GameResult({ winnerId, board, history }: Props) {
   };
 
   return (
-    <div>
-      <h2>게임 결과</h2>
-      <p>
-        {winnerId === undefined || winnerId === null
-          ? '무승부'
-          : `플레이어 ${winnerId! + 1}님의 승리입니다.`}
-      </p>
+    <div className="game-result">
+      <div className="game-result__title">
+        <h2>게임 결과</h2>
+        <p>
+          {winnerId === undefined || winnerId === null
+            ? '무승부'
+            : `플레이어 ${winnerId! + 1}님의 승리입니다.`}
+        </p>
+      </div>
 
-      <button onClick={onClickSave}>게임 결과 저장</button>
-      <button onClick={onClickMoveToMain}>메인으로</button>
+      <div className="buttons">
+        <button className="button button--primary" onClick={onClickSave}>
+          게임 결과 저장
+        </button>
+        <button className="button button--secondary" onClick={onClickMoveToMain}>
+          메인으로
+        </button>
+      </div>
     </div>
   );
 }

@@ -24,7 +24,6 @@
   max-width: 100dvw;
 
   height: 100dvh;
-  max-height: 100dvh;
 
   font-family: 'SUIT-Regular';
   color: var(--text-color);
@@ -43,7 +42,6 @@
   margin: 0 auto;
 
   overflow-y: scroll;
-  padding-top: 100px;
 
   background-color: #f3f3f3;
 
@@ -71,4 +69,6 @@
 
   text-shadow: 1px 1px 0 var(--primary-color), 2px 2px 0 white, 3px 3px 0 var(--primary-color),
     -4px -4px 0px white, 5px 5px 0 var(--primary-color), 6px 6px 0 var(--primary-dark-color);
+
+  animation: moveUp 2s alternate infinite;
 }
