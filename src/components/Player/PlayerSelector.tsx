@@ -5,7 +5,7 @@ import { colors, marks } from './constants/player';
 
 import './styles/playerSelector.css';
 
-import { useGameActions } from '@/store/contextAPI/state/useGameActions';
+import { useGameActions } from '../../store/contextAPI/state/useGameActions';
 
 type Props = {
   id: number;

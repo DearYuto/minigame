@@ -5,7 +5,8 @@ import GameSetting from '../gameSetting';
 import Main from '../main';
 import Step from '../step';
 
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
+import { GameValueContext } from '../../store/contextAPI/GameProvider';
+
 import MainButton from '../mainButton';
 import GameHistory from '../gameHistory';
 

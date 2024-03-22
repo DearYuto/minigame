@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
-
 import { marks } from './constants/player';
+
+import { GameValueContext } from '../../store/contextAPI/GameProvider';
 
 import './styles/player.css';
 

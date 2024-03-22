@@ -1,9 +1,8 @@
-import { PLAYER1, PLAYER2 } from '@/components/player/constants/player';
-import { Player } from '@/components/player/types/player';
+import { PLAYER1, PLAYER2 } from '../../../components/player/constants/player';
+import { Player } from '../../../components/player/types/player';
+import { GAME_RULE } from '../../../constants/gameRule';
 
 import type { GameAction, GameInitialState } from '../types/gameState';
-
-import { GAME_RULE } from '@/constants/gameRule';
 
 export const initGame: GameInitialState = {
   players: [{ ...PLAYER1 }, { ...PLAYER2 }],

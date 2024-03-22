@@ -3,19 +3,19 @@ import { toast } from 'react-toastify';
 
 import './styles/gameSetting.css';
 
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
-
-import { ERROR_MESSAGE } from '@/constants/messages';
-
 import PlayerSelector from '../player/PlayerSelector';
 import GameConditionController from './GameConditionController';
+import FirstPlayerSelector from './FirstPlayerSelector';
 
 import { useControlBoardSize } from './hooks/useControlBoardSize';
 import { useControlWinningCondition } from './hooks/useControlWinningCondition';
 
 import { validatePlayer } from './utils/validatePlayer';
-import { useGameActions } from '@/store/contextAPI/state/useGameActions';
-import FirstPlayerSelector from './FirstPlayerSelector';
+
+import { GameValueContext } from '../../store/contextAPI/GameProvider';
+import { useGameActions } from '../../store/contextAPI/state/useGameActions';
+
+import { ERROR_MESSAGE } from '../../constants/messages';
 
 export default function GameSetting() {
   const { players } = useContext(GameValueContext);

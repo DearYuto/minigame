@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import { useGameActions } from '@/store/contextAPI/state/useGameActions';
-import { GameStep } from '@/store/contextAPI/types/gameStep';
+import { GameStep } from '../../store/contextAPI/types/gameStep';
+import { useGameActions } from '../../store/contextAPI/state/useGameActions';
 
 export default function Main() {
   const { changeStep, initGame } = useGameActions();

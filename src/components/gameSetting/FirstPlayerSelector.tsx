@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
-import { useGameActions } from '@/store/contextAPI/state/useGameActions';
+import { GameValueContext } from '../../store/contextAPI/GameProvider';
+import { useGameActions } from '../../store/contextAPI/state/useGameActions';
 
 export default function FirstPlayerSelector() {
   const { players } = useContext(GameValueContext);

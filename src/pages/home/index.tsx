@@ -1,4 +1,4 @@
-import ConditionalRender from '@/components/conditionalRender';
+import ConditionalRender from '../../components/conditionalRender';
 
 export default function HomePage() {
   return (

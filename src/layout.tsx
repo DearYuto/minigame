@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './pages/home';
 import GameProvider from './store/contextAPI/GameProvider';
 
-import '@/styles/main.css';
+import './styles/main.css';
 
 function Layout() {
   return (

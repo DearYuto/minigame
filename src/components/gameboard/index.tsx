@@ -11,16 +11,14 @@ import type { Player } from '../player/types/player';
 import PlayerComponent from '../player/Player';
 import GameResult from '../gameResult';
 
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
-
 import { createBoard } from './utils/createBoard';
 import { shuffledPlayers } from './utils/shuffledPlayers';
 import { checkWin } from './utils/checkWin';
 import { checkDraw } from './utils/checkDraw';
 
-import { useGameActions } from '@/store/contextAPI/state/useGameActions';
-
-import { ERROR_MESSAGE, MESSAGE } from '@/constants/messages';
+import { GameValueContext } from '../../store/contextAPI/GameProvider';
+import { useGameActions } from '../../store/contextAPI/state/useGameActions';
+import { ERROR_MESSAGE, MESSAGE } from '../../constants/messages';
 
 export default function Gameboard() {
   const { players, boardSize, turn, winningCondition } = useContext(GameValueContext);

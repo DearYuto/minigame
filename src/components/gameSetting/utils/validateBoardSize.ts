@@ -1,4 +1,4 @@
-import { GAME_RULE } from '@/constants/gameRule';
+import { GAME_RULE } from '../../../constants/gameRule';
 
 export const validateBoardSize = (boardSize: number) => {
   if (boardSize < GAME_RULE.boardSize) {

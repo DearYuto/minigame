@@ -2,15 +2,15 @@ import { useContext, useEffect } from 'react';
 
 import './styles/timer.css';
 
-import { GAME_RULE } from '@/constants/gameRule';
-
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
-
 import { getRandomSpaces } from '../gameboard/utils/randomMarking';
 import { toast } from 'react-toastify';
 import { useTimer } from './hooks/useTimer';
-import { MESSAGE } from '@/constants/messages';
-import { useGameActions } from '@/store/contextAPI/state/useGameActions';
+
+import { GAME_RULE } from '../../constants/gameRule';
+import { MESSAGE } from '../../constants/messages';
+
+import { GameValueContext } from '../../store/contextAPI/GameProvider';
+import { useGameActions } from '../../store/contextAPI/state/useGameActions';
 
 type Props = {
   board: Array<Array<number>>;

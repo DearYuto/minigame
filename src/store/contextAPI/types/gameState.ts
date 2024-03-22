@@ -1,6 +1,6 @@
 import type { GameStep } from './gameStep';
 
-import { Player } from '@/components/player/types/player';
+import { Player } from '../../../components/player/types/player';
 
 export type GameInitialState = {
   players: Player[];

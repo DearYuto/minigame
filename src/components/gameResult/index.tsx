@@ -5,11 +5,11 @@ import { Player } from '../player/types/player';
 
 import './styles/gameResult.css';
 
-import { GameValueContext } from '@/store/contextAPI/GameProvider';
-import { useGameActions } from '@/store/contextAPI/state/useGameActions';
+import { GameValueContext } from '../../store/contextAPI/GameProvider';
+import { useGameActions } from '../../store/contextAPI/state/useGameActions';
 
-import { MESSAGE } from '@/constants/messages';
-import { STORAGE } from '@/constants/storage';
+import { STORAGE } from '../../constants/storage';
+import { MESSAGE } from '../../constants/messages';
 
 type Props = {
   winnerId: Player['id'] | undefined;

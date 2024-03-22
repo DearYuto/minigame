@@ -1,11 +1,10 @@
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
-import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
-
 import { validateBoardSize } from '../utils/validateBoardSize';
 
-import { ERROR_MESSAGE } from '@/constants/messages';
+import { GameActionsContext, GameValueContext } from '../../../store/contextAPI/GameProvider';
+import { ERROR_MESSAGE } from '../../../constants/messages';
 
 export const useControlBoardSize = () => {
   const { boardSize, winningCondition } = useContext(GameValueContext);
