@@ -1,9 +1,9 @@
 import { useCallback, useContext } from 'react';
 import { GameActionsContext } from '../GameProvider';
-import { Player } from '@/components/player/types/player';
+import { Player } from '@/components/gamePlayer/types/player';
 import { GameStep } from '../types/gameStep';
-import { MarkName, MarkSymbol } from '@/components/player/types/marks';
-import { Color } from '@/components/player/types/colors';
+import { MarkName, MarkSymbol } from '@/components/gamePlayer/types/marks';
+import { Color } from '@/components/gamePlayer/types/colors';
 
 export const useGameActions = () => {
   const dispatch = useContext(GameActionsContext);

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Row from '../gameboard/Row';
 import Cell from '../gameboard/Cell';
 
-import type { Player } from '../player/types/player';
+import type { Player } from '../gamePlayer/types/player';
 
 import './styles/gameHistory.css';
 import { STORAGE } from '@/constants/storage';

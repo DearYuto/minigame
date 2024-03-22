@@ -7,7 +7,7 @@ import { GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { ERROR_MESSAGE } from '@/constants/messages';
 
-import PlayerSelector from '../player/PlayerSelector';
+import PlayerSelector from '../gamePlayer/PlayerSelector';
 import GameConditionController from './GameConditionController';
 
 import { useControlBoardSize } from './hooks/useControlBoardSize';

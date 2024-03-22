@@ -7,8 +7,8 @@ import Cell from './Cell';
 import Row from './Row';
 import MainButton from '../mainButton';
 import GameTimer from '../gameTimer';
-import type { Player } from '../player/types/player';
-import PlayerComponent from '../player/Player';
+import type { Player } from '../gamePlayer/types/player';
+import PlayerComponent from '../gamePlayer/Player';
 import GameResult from '../gameResult';
 
 import { GameValueContext } from '@/store/contextAPI/GameProvider';

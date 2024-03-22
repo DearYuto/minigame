@@ -1,5 +1,5 @@
-import { PLAYER1, PLAYER2 } from '@/components/player/constants/player';
-import { Player } from '@/components/player/types/player';
+import { PLAYER1, PLAYER2 } from '@/components/gamePlayer/constants/player';
+import { Player } from '@/components/gamePlayer/types/player';
 
 import type { GameAction, GameInitialState } from '../types/gameState';
 

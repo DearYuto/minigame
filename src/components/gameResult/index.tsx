@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { toast } from 'react-toastify';
 
-import { Player } from '../player/types/player';
+import { Player } from '../gamePlayer/types/player';
 
 import './styles/gameResult.css';
 

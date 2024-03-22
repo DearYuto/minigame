@@ -1,4 +1,4 @@
-import { Player } from '@/components/player/types/player';
+import { Player } from '@/components/gamePlayer/types/player';
 import { GAME_RULE } from './gameRule';
 
 const ERROR_MESSAGE = {

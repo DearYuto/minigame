@@ -1,4 +1,4 @@
-import type { Player } from '@/components/player/types/player';
+import type { Player } from '@/components/gamePlayer/types/player';
 
 export const shuffledPlayers = (players: Player[]) => {
   const newPlayers = players

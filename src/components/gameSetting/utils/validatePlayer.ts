@@ -1,4 +1,4 @@
-import type { Player } from '@/components/player/types/player';
+import type { Player } from '@/components/gamePlayer/types/player';
 
 export const validatePlayer = (players: Player[]) => {
   const marksSet = new Set(players.map((player) => player.markName));
