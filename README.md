@@ -2,6 +2,10 @@
 
 크롬 브라우저(PC)에 최적화되어 있습니다.
 
+> **PREVIEW**
+
+![Honeycam 2024-03-22 12-09-02](https://github.com/DearYuto/minigame/assets/154968122/987edb26-a8a5-4e63-8ca6-038548122897)
+
 <br/>
 
 > **HOW TO GAME**
