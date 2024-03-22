@@ -29,13 +29,11 @@ yarn && yarn dev
 
 <br/>
 
-
 ## 💎 사용 기술 스택
 
-<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-round&logo=Typescript&logoColor=white"/> <img src="https://img.shields.io/badge/React-6EC0EB?style=flat-round&logo=React&logoColor=white"/>
+<img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-round&logo=Typescript&logoColor=white"/> <img src="https://img.shields.io/badge/React-6EC0EB?style=flat-round&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-round&logo=CSS3&logoColor=white"/>
 
 <br/>
-
 
 ## 💎 버전 정보
 
@@ -59,7 +57,6 @@ yarn && yarn dev
 
 <br/>
 
-
 ## 💎 폴더 구조
 
 ```
@@ -69,7 +66,9 @@ yarn && yarn dev
 │  │  ├─styles
 │  │  └─utils
 │  ├─gameHistory
+│  │  └─styles
 │  ├─gameResult
+│  │  └─styles
 │  ├─gameSetting
 │  │  ├─hooks
 │  │  ├─styles
