@@ -6,6 +6,7 @@ import Cell from '../gameboard/Cell';
 import type { Player } from '../player/types/player';
 
 import './styles/gameHistory.css';
+import { STORAGE } from '@/constants/storage';
 
 type InitState = Array<{
   winnerId: number;
@@ -18,7 +19,7 @@ export default function GameHistory() {
   const [histories, setHistories] = useState<InitState>([]);
 
   useEffect(() => {
-    const savedGameResults = JSON.parse(localStorage.getItem('gameHistory') ?? '[]');
+    const savedGameResults = JSON.parse(localStorage.getItem(STORAGE.historyKey) ?? '[]');
     setHistories([savedGameResults]);
   }, []);
 

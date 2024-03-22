@@ -1,15 +1,12 @@
-import { GameActionsContext } from '@/store/contextAPI/GameProvider';
 import { CaretLeftIcon } from '@radix-ui/react-icons';
-import { useContext } from 'react';
+
+import { useGameActions } from '@/store/contextAPI/state/useGameActions';
 
 export default function MainButton() {
-  const dispatch = useContext(GameActionsContext);
+  const { changeStep } = useGameActions();
 
   const onClick = () => {
-    dispatch({
-      type: 'CHANGE_STEP',
-      value: 'MAIN',
-    });
+    changeStep('MAIN');
   };
 
   return (

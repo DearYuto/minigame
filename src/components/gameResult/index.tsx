@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { toast } from 'react-toastify';
 
 import { Player } from '../player/types/player';
 
@@ -6,6 +7,9 @@ import './styles/gameResult.css';
 
 import { GameValueContext } from '@/store/contextAPI/GameProvider';
 import { useGameActions } from '@/store/contextAPI/state/useGameActions';
+
+import { MESSAGE } from '@/constants/messages';
+import { STORAGE } from '@/constants/storage';
 
 type Props = {
   winnerId: Player['id'] | undefined;
@@ -18,7 +22,10 @@ export default function GameResult({ winnerId, board, history }: Props) {
 
   const onClickSave = () => {
     const gameResult = { winnerId, board, history, players };
-    localStorage.setItem('gameHistory', JSON.stringify(gameResult));
+
+    localStorage.setItem(STORAGE.historyKey, JSON.stringify(gameResult));
+
+    toast(MESSAGE.SAVE);
   };
 
   const onClickMoveToMain = () => {

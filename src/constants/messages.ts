@@ -16,6 +16,7 @@ const ERROR_MESSAGE = {
 const MESSAGE = {
   TIME_OVER: '시간초과! 다음 플레이어로 턴이 넘어갑니다.',
   DRAW: '무승부입니다.',
+  SAVE: '게임 결과가 저장되었습니다.',
 
   printWinner: (winner: Player['id']) => `우승자는 플레이어${winner} 입니다.`,
 } as const;
