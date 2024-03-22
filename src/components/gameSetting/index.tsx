@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import './styles/gameSetting.css';
 
-import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
+import { GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { ERROR_MESSAGE } from '@/constants/messages';
 
@@ -14,10 +14,12 @@ import { useControlBoardSize } from './hooks/useControlBoardSize';
 import { useControlWinningCondition } from './hooks/useControlWinningCondition';
 
 import { validatePlayer } from './utils/validatePlayer';
+import { useGameActions } from '@/store/contextAPI/state/useGameActions';
+import FirstPlayerSelector from './FirstPlayerSelector';
 
 export default function GameSetting() {
   const { players } = useContext(GameValueContext);
-  const dispatch = useContext(GameActionsContext);
+  const { changeStep } = useGameActions();
 
   const { boardSize, decreaseSize, increaseSize } = useControlBoardSize();
   const { winningCondition, decreaseWinningCondition, increaseWinningCondition } =
@@ -29,10 +31,7 @@ export default function GameSetting() {
       return;
     }
 
-    dispatch({
-      type: 'CHANGE_STEP',
-      value: 'GAME',
-    });
+    changeStep('GAME');
   };
 
   return (
@@ -56,30 +55,7 @@ export default function GameSetting() {
           onIncrease={increaseWinningCondition}
         />
 
-        <form
-          onChange={(e: React.ChangeEvent<HTMLFormElement>) => {
-            dispatch({
-              type: 'CHANGE_FIRST_PLAYER',
-              value: {
-                turn: e.target.id === 'null' ? null : Number(e.target.id),
-              },
-            });
-          }}
-          className="game-setting__condition-controller player-selector"
-        >
-          <label>선공</label>
-          <small>먼저 시작할 플레이어를 선택해주세요.</small>
-          <div className="game-setting__controller">
-            <input defaultChecked type="radio" id={'null'} name="initiative" value={'random'} />
-            <label htmlFor={'null'}>랜덤</label>
-
-            <input type="radio" id={'0'} name="initiative" value="플레이어1" />
-            <label htmlFor={'0'}>플레이어1</label>
-
-            <input type="radio" id={'1'} name="initiative" value="플레이어2" />
-            <label htmlFor={'1'}>플레이어2</label>
-          </div>
-        </form>
+        <FirstPlayerSelector />
       </div>
 
       <h2 className="game-setting__title">플레이어 마크 선택</h2>
