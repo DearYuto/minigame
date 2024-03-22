@@ -7,15 +7,15 @@ import type { Player } from '../player/types/player';
 
 import './styles/gameHistory.css';
 
+type InitState = Array<{
+  winnerId: number;
+  board: Array<Array<number | null>>;
+  history: Array<[number, number]>;
+  players: Player[];
+}>;
+
 export default function GameHistory() {
-  const [histories, setHistories] = useState<
-    Array<{
-      winnerId: number;
-      board: Array<Array<number | null>>;
-      history: Array<[number, number]>;
-      players: Player[];
-    }>
-  >([]);
+  const [histories, setHistories] = useState<InitState>([]);
 
   useEffect(() => {
     const savedGameResults = JSON.parse(localStorage.getItem('gameHistory') ?? '[]');

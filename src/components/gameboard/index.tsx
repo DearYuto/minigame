@@ -88,26 +88,32 @@ export default function Gameboard() {
     changeTurn(playerId);
   };
 
-  const onClickUndo = () => {
-    if (history.length === 0) return;
+  const validateUndo = () => {
+    if (history.length === 0) return false;
 
     if (isUndoUsed) {
       toast.error(ERROR_MESSAGE.ALREADY_USED);
-      return;
+      return false;
     }
 
     if (players[turn!].undoLimit <= 0) {
       toast.error(ERROR_MESSAGE.NOT_USED_MORE);
-      return;
+      return false;
     }
 
+    return true;
+  };
+
+  const onClickUndo = () => {
+    if (!validateUndo()) return;
+
     const newHistory = history.slice(0, history.length - 1);
-    const lastMove = history[history.length - 1];
+    const [row, col] = history[history.length - 1];
 
     setHistory(() => newHistory);
     setBoard((prev) => {
       const newBoard = prev.map((row) => [...row]);
-      newBoard[lastMove[0]][lastMove[1]] = null;
+      newBoard[row][col] = null;
       return newBoard;
     });
 
