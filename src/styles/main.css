@@ -20,32 +20,32 @@
 }
 
 .layout {
-  width: 100dvw;
-  max-width: 100dvw;
+  width: 100%;
+  max-width: 500px;
+  height: 100vh;
 
-  height: 100dvh;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: 50px;
 
   font-family: 'SUIT-Regular';
   color: var(--text-color);
 
-  overflow: hidden;
+  overflow: auto;
+  position: relative;
+  background-color: #f3f3f3;
 }
 
 .container {
+  width: 100%;
+  max-width: 500px;
+
+  padding: 20px;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-
-  max-width: 500px;
-  height: 100%;
-  margin: 0 auto;
-
-  overflow-y: scroll;
-
-  background-color: #f3f3f3;
-
-  position: relative;
 }
 
 .title {
