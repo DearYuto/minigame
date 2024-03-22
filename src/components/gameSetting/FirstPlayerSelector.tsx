@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { GameValueContext } from '@/store/contextAPI/GameProvider';
 import { useGameActions } from '@/store/contextAPI/state/useGameActions';
@@ -23,7 +23,7 @@ export default function FirstPlayerSelector() {
 
         {players.map((player, idx) => {
           return (
-            <>
+            <React.Fragment key={player.id}>
               <input
                 type="radio"
                 id={String(idx)}
@@ -31,7 +31,7 @@ export default function FirstPlayerSelector() {
                 value={`플레이어${player.id + 1}`}
               />
               <label htmlFor={String(idx)}>플레이어{player.id + 1}</label>
-            </>
+            </React.Fragment>
           );
         })}
       </div>
