@@ -168,7 +168,7 @@ export default function Gameboard() {
     <>
       <MainButton />
       {gameOver ? (
-        <GameResult board={board} winner={winner} history={history} />
+        <GameResult board={board} winnerId={winner} history={history} />
       ) : (
         <>
           <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />

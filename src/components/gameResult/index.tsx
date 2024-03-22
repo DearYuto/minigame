@@ -2,18 +2,19 @@ import { useContext } from 'react';
 
 import { Player } from '../player/types/player';
 
-import { GameActionsContext } from '@/store/contextAPI/GameProvider';
+import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
 
 type Props = {
-  winner: Player['id'] | undefined;
+  winnerId: Player['id'] | undefined;
   board: Array<Array<number>>;
   history: number[][];
 };
-export default function GameResult({ winner, board, history }: Props) {
+export default function GameResult({ winnerId, board, history }: Props) {
+  const { players } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
   const onClickSave = () => {
-    const gameResult = { winner, board, history };
+    const gameResult = { winnerId, board, history, players };
     localStorage.setItem('gameHistory', JSON.stringify(gameResult));
   };
 
@@ -27,7 +28,7 @@ export default function GameResult({ winner, board, history }: Props) {
   return (
     <div>
       <h2>게임 결과</h2>
-      <p>{!winner ? '무승부' : `플레이어 ${winner + 1}님의 승리입니다.`}</p>
+      <p>{winnerId === null ? '무승부' : `플레이어 ${winnerId! + 1}님의 승리입니다.`}</p>
 
       <button onClick={onClickSave}>게임 결과 저장</button>
       <button onClick={onClickMoveToMain}>메인으로</button>
