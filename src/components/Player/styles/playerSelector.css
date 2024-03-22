@@ -4,7 +4,7 @@
   width: 100%;
   margin-bottom: 1rem;
   border-radius: 1rem;
-  border: 3px dashed var(--gray-color-500);
+  border: 3px solid var(--gray-color-500);
   background-color: white;
   padding: 1rem;
 }

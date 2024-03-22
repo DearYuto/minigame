@@ -13,7 +13,7 @@
 
   padding: 1rem;
   background-color: white;
-  border: 2px dashed var(--gray-color-300);
+  border: 3px solid var(--gray-color-500);
 }
 
 .player__name {

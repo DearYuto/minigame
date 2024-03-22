@@ -30,11 +30,13 @@
 .game-setting__condition {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
+
   gap: 1rem;
 }
 
 .game-setting__condition label {
-  margin-top: 1rem;
+  margin-top: 0.4rem;
   font-weight: bold;
 }
 
@@ -42,11 +44,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
 
   background-color: white;
 
   border-radius: 1rem;
-  border: 3px dashed var(--gray-color-500);
+  border: 3px solid var(--gray-color-500);
   padding: 1rem;
 }
 
