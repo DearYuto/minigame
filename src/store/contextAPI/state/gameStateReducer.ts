@@ -4,16 +4,13 @@ import { Player } from '@/components/player/types/player';
 import type { GameAction, GameInitialState } from '../types/gameState';
 
 import { GAME_RULE } from '@/constants/gameRule';
-import { createBoard } from '@/components/gameboard/utils/createBoard';
 
 export const initGame: GameInitialState = {
   players: [{ ...PLAYER1 }, { ...PLAYER2 }],
-  history: [],
   turn: null,
   boardSize: GAME_RULE.boardSize,
   winningCondition: GAME_RULE.winningCondition,
   gameStep: 'MAIN',
-  gameBoard: createBoard(GAME_RULE.boardSize, GAME_RULE.boardSize),
 };
 
 export const gameReducer = (state: GameInitialState, action: GameAction) => {
@@ -83,13 +80,6 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
         players: newPlayers,
       };
     }
-
-    case 'CHANGE_GAMEBOARD': {
-      return { ...state, gameBoard: action.value };
-    }
-
-    case 'CHANGE_HISTORY':
-      return { ...state, history: action.value };
 
     default:
       return state;

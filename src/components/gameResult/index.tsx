@@ -27,7 +27,7 @@ export default function GameResult({ winner, board, history }: Props) {
   return (
     <div>
       <h2>게임 결과</h2>
-      <p>{!winner ? '무승부' : `플레이어 ${winner}님의 승리입니다.`}</p>
+      <p>{!winner ? '무승부' : `플레이어 ${winner + 1}님의 승리입니다.`}</p>
 
       <button onClick={onClickSave}>게임 결과 저장</button>
       <button onClick={onClickMoveToMain}>메인으로</button>

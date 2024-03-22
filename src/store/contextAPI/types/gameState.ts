@@ -4,12 +4,10 @@ import { Player } from '@/components/player/types/player';
 
 export type GameInitialState = {
   players: Player[];
-  history: unknown[];
   turn: Player['id'] | null;
   boardSize: number;
   winningCondition: number;
   gameStep: GameStep;
-  gameBoard: Array<Array<number>>;
 };
 
 type InitGame = {
@@ -57,18 +55,7 @@ type ChangeUndo = {
   type: 'CHANGE_UNDO';
   value: {
     id: Player['id'];
-    undoLimit: number;
   };
-};
-
-type ChangeGameBoard = {
-  type: 'CHANGE_GAMEBOARD';
-  value: Array<Array<number>>;
-};
-
-type ChangeHistory = {
-  type: 'CHANGE_HISTORY';
-  value: Array<Array<number>>;
 };
 
 export type GameAction =
@@ -79,6 +66,4 @@ export type GameAction =
   | ChangeMark
   | ChangeColor
   | ChangeUndo
-  | ChangeGameBoard
-  | ChangeHistory
   | InitGame;

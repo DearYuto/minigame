@@ -6,23 +6,28 @@ import './styles/gameboard.css';
 import Cell from './Cell';
 import Row from './Row';
 import MainButton from '../mainButton';
+import GameTimer from '../gameTimer';
+import type { Player } from '../player/types/player';
+import PlayerComponent from '../player/Player';
+import GameResult from '../gameResult';
 
-import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
+import { GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { createBoard } from './utils/createBoard';
 import { shuffledPlayers } from './utils/shuffledPlayers';
 import { checkWin } from './utils/checkWin';
 import { checkDraw } from './utils/checkDraw';
 
-import GameTimer from '../gameTimer';
-import type { Player } from '../player/types/player';
-import PlayerComponent from '../player/Player';
-import GameResult from '../gameResult';
+import { useGameActions } from '@/store/contextAPI/state/useGameActions';
 
-// TODO 히스토리 전역 상태로 리팩토링, board도 gameMap 전역 상태로 변경해야함
+import { ERROR_MESSAGE, MESSAGE } from '@/constants/messages';
+
 export default function Gameboard() {
-  const { players, boardSize, gameBoard, turn, winningCondition } = useContext(GameValueContext);
-  const dispatch = useContext(GameActionsContext);
+  const { players, boardSize, turn, winningCondition } = useContext(GameValueContext);
+
+  const playerId = players[turn!]?.id;
+
+  const { changeTurn, changeUndo } = useGameActions();
 
   const [board, setBoard] = useState(() => createBoard(boardSize, boardSize));
   const [history, setHistory] = useState<number[][]>([]);
@@ -31,19 +36,12 @@ export default function Gameboard() {
   const [winner, setWinner] = useState<Player['id']>();
   const [gameOver, setGameOver] = useState(false);
 
-  console.log(gameBoard);
-
-  // TODO 중복 로직 제거 필요
-
   useEffect(() => {
     if (!turn) {
       const newPlayers = shuffledPlayers(players);
-      dispatch({
-        type: 'CHANGE_TURN',
-        value: newPlayers[0].id,
-      });
+      changeTurn(newPlayers[0].id);
     }
-  }, [players, dispatch]);
+  }, [changeTurn]);
 
   const onClick = (e: React.MouseEvent<HTMLTableElement>) => {
     const target = e.target as HTMLElement;
@@ -87,26 +85,21 @@ export default function Gameboard() {
 
     setIsUndoUsed(false);
 
-    changeTurn();
+    changeTurn(playerId);
   };
 
-  const changeTurn = () => {
-    dispatch({
-      type: 'CHANGE_TURN',
-      value: turn ?? shuffledPlayers(players)[0].id,
-    });
-  };
+  // TODO 선공 랜덤인 경우에만 셔플
 
   const onClickUndo = () => {
     if (history.length === 0) return;
 
     if (isUndoUsed) {
-      toast.error('무르기를 이미 사용했어요.');
+      toast.error(ERROR_MESSAGE.ALREADY_USED);
       return;
     }
 
     if (players[turn!].undoLimit <= 0) {
-      toast.error('무르기를 더이상 사용할 수 없어요.');
+      toast.error(ERROR_MESSAGE.NOT_USED_MORE);
       return;
     }
 
@@ -122,13 +115,7 @@ export default function Gameboard() {
 
     setIsUndoUsed(true);
 
-    dispatch({
-      type: 'CHANGE_UNDO',
-      value: {
-        id: turn!,
-        undoLimit: players[turn!].undoLimit - 1,
-      },
-    });
+    changeUndo(playerId);
   };
 
   const Cells = useMemo(
@@ -165,14 +152,14 @@ export default function Gameboard() {
 
     const hasWinner = checkWin(board, players[turn!].id, winningCondition);
     if (hasWinner) {
-      toast.success(`우승자는 플레이어 ${players[turn!].id + 1}입니다.`);
+      toast.success(MESSAGE.printWinner(playerId + 1));
       setWinner(players[turn!].id);
       setGameOver(true);
     }
 
     const isDraw = checkDraw(board);
     if (!hasWinner && isDraw) {
-      toast('무승부입니다.');
+      toast(MESSAGE.DRAW);
       setGameOver(true);
     }
   };
@@ -186,7 +173,7 @@ export default function Gameboard() {
         <>
           <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
           <p className="player-turn">
-            <strong>{turn! + 1}번 플레이어</strong> 차례입니다.
+            <strong>{playerId + 1}번 플레이어</strong> 차례입니다.
           </p>
 
           <PlayerComponent />

@@ -4,13 +4,13 @@ import './styles/timer.css';
 
 import { GAME_RULE } from '@/constants/gameRule';
 
-import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
+import { GameValueContext } from '@/store/contextAPI/GameProvider';
 
 import { getRandomSpaces } from '../gameboard/utils/randomMarking';
-import { shuffledPlayers } from '../gameboard/utils/shuffledPlayers';
 import { toast } from 'react-toastify';
 import { useTimer } from './hooks/useTimer';
 import { MESSAGE } from '@/constants/messages';
+import { useGameActions } from '@/store/contextAPI/state/useGameActions';
 
 type Props = {
   board: Array<Array<number>>;
@@ -22,7 +22,7 @@ export default function GameTimer({ board, setBoard, updateHistory }: Props) {
   const { time, resetTimer } = useTimer(GAME_RULE.timer);
 
   const { turn, players } = useContext(GameValueContext);
-  const dispatch = useContext(GameActionsContext);
+  const { changeTurn } = useGameActions();
 
   useEffect(() => {
     resetTimer();
@@ -42,10 +42,8 @@ export default function GameTimer({ board, setBoard, updateHistory }: Props) {
         });
 
         // 다음 플레이어로 턴 변경
-        dispatch({
-          type: 'CHANGE_TURN',
-          value: turn ?? shuffledPlayers(players)[0].id,
-        });
+        changeTurn(turn!);
+
         toast(MESSAGE.TIME_OVER);
 
         // 히스토리 동기화
@@ -55,7 +53,7 @@ export default function GameTimer({ board, setBoard, updateHistory }: Props) {
       // 타이머 리셋
       resetTimer();
     }
-  }, [time, resetTimer, board, turn, players, setBoard, dispatch, updateHistory]);
+  }, [time, resetTimer, board, players, setBoard, updateHistory]);
 
   return <time className="timer">{time}</time>;
 }
