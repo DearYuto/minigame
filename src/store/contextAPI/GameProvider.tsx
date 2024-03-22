@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react';
 
 import type { GameAction, GameInitialState } from './types/gameState';
-import { gameReducer, initGame } from './state/gameState';
+import { gameReducer, initGame } from './state/gameStateReducer';
 
 export const GameActionsContext = createContext<React.Dispatch<GameAction>>(() => {});
 export const GameValueContext = createContext<GameInitialState>(initGame);

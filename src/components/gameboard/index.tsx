@@ -21,7 +21,7 @@ import GameResult from '../gameResult';
 
 // TODO 히스토리 전역 상태로 리팩토링, board도 gameMap 전역 상태로 변경해야함
 export default function Gameboard() {
-  const { players, boardSize, turn, winningCondition } = useContext(GameValueContext);
+  const { players, boardSize, gameBoard, turn, winningCondition } = useContext(GameValueContext);
   const dispatch = useContext(GameActionsContext);
 
   const [board, setBoard] = useState(() => createBoard(boardSize, boardSize));
@@ -31,7 +31,7 @@ export default function Gameboard() {
   const [winner, setWinner] = useState<Player['id']>();
   const [gameOver, setGameOver] = useState(false);
 
-  console.log(players);
+  console.log(gameBoard);
 
   // TODO 중복 로직 제거 필요
 
@@ -180,30 +180,30 @@ export default function Gameboard() {
   return (
     <>
       <MainButton />
-      {/* {gameOver ? (
+      {gameOver ? (
         <GameResult board={board} winner={winner} history={history} />
-      ) : ( */}
-      <>
-        <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
-        <p className="player-turn">
-          <strong>{turn! + 1}번 플레이어</strong> 차례입니다.
-        </p>
+      ) : (
+        <>
+          <GameTimer board={board} setBoard={setBoard} updateHistory={updateHistory} />
+          <p className="player-turn">
+            <strong>{turn! + 1}번 플레이어</strong> 차례입니다.
+          </p>
 
-        <PlayerComponent />
+          <PlayerComponent />
 
-        <table className="game-board" onClick={onClick}>
-          <tbody>{Cells}</tbody>
-        </table>
+          <table className="game-board" onClick={onClick}>
+            <tbody>{Cells}</tbody>
+          </table>
 
-        <button
-          className="button button--undo"
-          disabled={history.length <= 0}
-          onClick={onClickUndo}
-        >
-          무르기
-        </button>
-      </>
-      {/* )} */}
+          <button
+            className="button button--undo"
+            disabled={history.length <= 0}
+            onClick={onClickUndo}
+          >
+            무르기
+          </button>
+        </>
+      )}
     </>
   );
 }
