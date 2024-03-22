@@ -81,6 +81,13 @@ export const gameReducer = (state: GameInitialState, action: GameAction) => {
       };
     }
 
+    case 'CHANGE_FIRST_PLAYER': {
+      return {
+        ...state,
+        turn: action.value.turn,
+      };
+    }
+
     default:
       return state;
   }

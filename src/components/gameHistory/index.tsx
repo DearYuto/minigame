@@ -28,9 +28,16 @@ export default function GameHistory() {
       {histories !== undefined ? (
         histories.map((game, gameIndex) => (
           <div key={gameIndex}>
-            <p>Winner: 플레이어 {game.winnerId + 1}</p>
-            <p>마크 : {game.players[game.winnerId].markSymbol}</p>
-            <p>컬러 : {game.players[game.winnerId].color}</p>
+            {game.winnerId !== null && game.winnerId !== undefined ? (
+              <>
+                <p>Winner: 플레이어 {game.winnerId + 1}</p>
+                <p>마크 : {game.players[game.winnerId].markSymbol}</p>
+                <p>컬러 : {game.players[game.winnerId].color}</p>
+              </>
+            ) : (
+              <p>무승부</p>
+            )}
+
             <table>
               <tbody>
                 {game.board.map((row, rowIdx) => (
@@ -39,8 +46,8 @@ export default function GameHistory() {
                       const moveIndex = game.history.findIndex(
                         (h) => h[0] === rowIdx && h[1] === cellIdx
                       );
-                      const playerMark = cell !== null ? game.players[cell].markSymbol : '';
-                      const playerColor = cell !== null ? game.players[cell].color : '';
+                      const playerMark = cell !== null ? game.players[cell]?.markSymbol : '';
+                      const playerColor = cell !== null ? game.players[cell]?.color : '';
 
                       return (
                         <Cell id={`${rowIdx},${cellIdx}`} key={cellIdx}>

@@ -37,7 +37,7 @@ export default function Gameboard() {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    if (!turn) {
+    if (turn === null) {
       const newPlayers = shuffledPlayers(players);
       changeTurn(newPlayers[0].id);
     }
@@ -151,13 +151,12 @@ export default function Gameboard() {
     // 우승자, 무승부 체크
 
     const hasWinner = checkWin(board, players[turn!].id, winningCondition);
+    const isDraw = checkDraw(board);
     if (hasWinner) {
       toast.success(MESSAGE.printWinner(playerId + 1));
       setWinner(players[turn!].id);
       setGameOver(true);
     }
-
-    const isDraw = checkDraw(board);
     if (!hasWinner && isDraw) {
       toast(MESSAGE.DRAW);
       setGameOver(true);

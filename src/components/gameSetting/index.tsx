@@ -56,20 +56,30 @@ export default function GameSetting() {
           onIncrease={increaseWinningCondition}
         />
 
-        <div className="game-setting__condition-controller player-selector">
+        <form
+          onChange={(e: React.ChangeEvent<HTMLFormElement>) => {
+            dispatch({
+              type: 'CHANGE_FIRST_PLAYER',
+              value: {
+                turn: e.target.id === 'null' ? null : Number(e.target.id),
+              },
+            });
+          }}
+          className="game-setting__condition-controller player-selector"
+        >
           <label>선공</label>
           <small>먼저 시작할 플레이어를 선택해주세요.</small>
           <div className="game-setting__controller">
-            <input defaultChecked type="radio" id={'random'} name="initiative" value={'random'} />
-            <label htmlFor={'random'}>랜덤</label>
+            <input defaultChecked type="radio" id={'null'} name="initiative" value={'random'} />
+            <label htmlFor={'null'}>랜덤</label>
 
-            <input type="radio" id={'player1'} name="initiative" value="플레이어1" />
-            <label htmlFor={'player1'}>플레이어1</label>
+            <input type="radio" id={'0'} name="initiative" value="플레이어1" />
+            <label htmlFor={'0'}>플레이어1</label>
 
-            <input type="radio" id={'player2'} name="initiative" value="플레이어2" />
-            <label htmlFor={'player2'}>플레이어2</label>
+            <input type="radio" id={'1'} name="initiative" value="플레이어2" />
+            <label htmlFor={'1'}>플레이어2</label>
           </div>
-        </div>
+        </form>
       </div>
 
       <h2 className="game-setting__title">플레이어 마크 선택</h2>

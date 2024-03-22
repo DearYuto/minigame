@@ -58,6 +58,13 @@ type ChangeUndo = {
   };
 };
 
+type ChangeFirstPlayer = {
+  type: 'CHANGE_FIRST_PLAYER';
+  value: {
+    turn: Player['id'] | null;
+  };
+};
+
 export type GameAction =
   | ChangeTurnAction
   | ChangeBoardSizeAction
@@ -66,4 +73,5 @@ export type GameAction =
   | ChangeMark
   | ChangeColor
   | ChangeUndo
+  | ChangeFirstPlayer
   | InitGame;
