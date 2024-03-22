@@ -72,14 +72,14 @@ export default function Gameboard() {
     const hasWinner = checkWin(newBoard, players[turn!].id, winningCondition);
 
     if (hasWinner) {
-      toast.success(`우승자는 플레이어 ${players[turn!].id + 1}입니다.`);
+      toast.success(MESSAGE.printWinner(players[turn!].id + 1));
       setWinner(players[turn!].id);
       setGameOver(true);
     }
 
     const isDraw = checkDraw(newBoard);
     if (!hasWinner && isDraw) {
-      toast('무승부입니다.');
+      toast(MESSAGE.DRAW);
       setGameOver(true);
     }
 
