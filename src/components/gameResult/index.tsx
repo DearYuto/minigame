@@ -4,7 +4,8 @@ import { Player } from '../player/types/player';
 
 import './styles/gameResult.css';
 
-import { GameActionsContext, GameValueContext } from '@/store/contextAPI/GameProvider';
+import { GameValueContext } from '@/store/contextAPI/GameProvider';
+import { useGameActions } from '@/store/contextAPI/state/useGameActions';
 
 type Props = {
   winnerId: Player['id'] | undefined;
@@ -13,7 +14,7 @@ type Props = {
 };
 export default function GameResult({ winnerId, board, history }: Props) {
   const { players } = useContext(GameValueContext);
-  const dispatch = useContext(GameActionsContext);
+  const { changeStep } = useGameActions();
 
   const onClickSave = () => {
     const gameResult = { winnerId, board, history, players };
@@ -21,10 +22,7 @@ export default function GameResult({ winnerId, board, history }: Props) {
   };
 
   const onClickMoveToMain = () => {
-    dispatch({
-      type: 'CHANGE_STEP',
-      value: 'MAIN',
-    });
+    changeStep('MAIN');
   };
 
   return (

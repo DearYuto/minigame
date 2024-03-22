@@ -18,6 +18,6 @@ const MESSAGE = {
   DRAW: '무승부입니다.',
 
   printWinner: (winner: Player['id']) => `우승자는 플레이어${winner} 입니다.`,
-};
+} as const;
 
 export { ERROR_MESSAGE, MESSAGE };

@@ -88,8 +88,6 @@ export default function Gameboard() {
     changeTurn(playerId);
   };
 
-  // TODO 선공 랜덤인 경우에만 셔플
-
   const onClickUndo = () => {
     if (history.length === 0) return;
 
