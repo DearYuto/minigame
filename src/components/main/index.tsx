@@ -1,40 +1,25 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { GameActionsContext } from '@/store/contextAPI/GameProvider';
-
-import type { GameAction } from '@/store/contextAPI/types/gameState';
+import { useGameActions } from '@/store/contextAPI/state/useGameActions';
+import { GameStep } from '@/store/contextAPI/types/gameStep';
 
 export default function Main() {
-  const dispatch = useContext(GameActionsContext);
+  const { changeStep, initGame } = useGameActions();
 
   useEffect(() => {
-    dispatch({
-      type: 'INIT_GAME',
-    });
-  }, []);
+    initGame();
+  }, [initGame]);
 
-  const onClick = (action: GameAction) => () => {
-    dispatch(action);
+  const onClick = (action: GameStep) => () => {
+    changeStep(action);
   };
 
   return (
     <div className="buttons">
-      <button
-        onClick={onClick({
-          type: 'CHANGE_STEP',
-          value: 'SETTING',
-        })}
-        className="button button--start"
-      >
+      <button onClick={onClick('SETTING')} className="button button--start">
         게임 시작
       </button>
-      <button
-        onClick={onClick({
-          type: 'CHANGE_STEP',
-          value: 'HISTORY',
-        })}
-        className="button button--history"
-      >
+      <button onClick={onClick('HISTORY')} className="button button--history">
         기록
       </button>
     </div>
