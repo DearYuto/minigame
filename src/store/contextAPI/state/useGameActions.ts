@@ -69,6 +69,18 @@ export const useGameActions = () => {
     [dispatch]
   );
 
+  const changeFirstPlayer = useCallback(
+    (turn: null | number) => {
+      dispatch({
+        type: 'CHANGE_FIRST_PLAYER',
+        value: {
+          turn,
+        },
+      });
+    },
+    [dispatch]
+  );
+
   return {
     initGame,
     changeBoardSize,
@@ -78,5 +90,6 @@ export const useGameActions = () => {
     changeMark,
     changeColor,
     changeUndo,
+    changeFirstPlayer,
   };
 };
